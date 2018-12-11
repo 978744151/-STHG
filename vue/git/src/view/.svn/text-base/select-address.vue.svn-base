@@ -1,0 +1,121 @@
+<template>
+    <div class="address-list">
+        <div class="address-item" v-for="(item,index) in addressData" v-bind:class="{default:item.isDefault}" @click='selectAddress'>
+            <div class="info">
+                <p>收货人：{{item.name}}</p>
+                <p class="receiving ">收货地址：{{item.address}}</p>
+                <p class="phone">{{item.phone}}</p>
+            </div>
+            <div class="btn">
+                <button>删除</button>
+                <button v-if="!item.isDefault" @click.stop="switchDefault(item)">设置为默认地址</button>
+                <button @click="editAddress('123')">编辑</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "select-address",
+        data() {
+            /*
+            * param {boolean} isDefault 是否默认地址
+            * */
+            return {
+                addressData:[]
+            }
+        },
+        methods: {
+            editAddress:function (id) {
+                this.$router.push({name:'editAddress',params: {id:id}})
+            },
+            getAddress() {
+                let _that = this;
+                $.ajax({
+                    type:'GET',
+                    url:'/api/address',
+                    success(res) {
+                        _that.addressData = res.data
+                    }
+                })
+            },
+            selectAddress() {
+                this.$router.go(-1)
+            },
+            switchDefault(item) {
+                for(let i=0;i<this.addressData.length;i++){
+                    this.addressData[i].isDefault = false
+                }
+                item.isDefault = true
+            }
+        },
+        created() {
+            this.getAddress()
+        }
+    }
+</script>
+
+<style scoped>
+    .address-list{
+
+    }
+    .address-item{
+        width: 100%;
+        padding: 20px 0;
+        background-color: #fff;
+        border-top: 1px solid #dadada;
+    }
+    .address-item:first-child{
+        border: none;
+    }
+    .address-item .info{
+        padding-left: 45px;
+        padding-right: 17px;
+        background: url("../assets/icon-radio.png") no-repeat;
+        background-position: 10px center;
+        background-size: 20px auto;
+        display: flex;
+        flex-direction:column;
+        justify-content: space-between;
+        font-size: 15px;
+        position: relative;
+    }
+    .address-item .info .receiving{
+        font-size: 14px;
+        color: #878787;
+    }
+    .address-item .info .phone{
+        position: absolute;
+        right: 17.5px;
+        top: 0;
+        line-height: 1.5;
+    }
+    .address-item .btn{
+        margin-top: 20px;
+        text-align: right;
+        padding-right: 10px;
+    }
+    .address-list .btn button{
+        line-height: 1;
+        padding: 9px 20px;
+        color: #123676;
+        font-size: 15px;
+        border-radius: 17px;
+        background: #fff;
+        border: 1px solid #bdc3cb;
+    }
+
+    /**/
+    .default{
+        background-image: url("../assets/icon-mrdz.png");
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: 32px auto;
+    }
+    .default .info{
+        background: url("../assets/icon-radio-active.png") no-repeat;
+        background-position: 10px center;
+        background-size: 20px auto;
+    }
+</style>

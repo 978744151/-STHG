@@ -1,0 +1,116 @@
+<template>
+    <div class="integral">
+        <div class="integrallist">
+            <div class="makehead">
+                <p>签到送能量值</p>
+                <span>奖励5能量值</span>
+            </div>
+            <div class="makeintro">
+                <p>签到送能量值</p>
+                <p class="nums"><span>5</span>能量值</p>
+            </div>
+            <div class="makebottom">连续签到有惊喜</div>
+        </div>
+
+        <div class="integrallist integrallist2">
+            <div class="makehead">
+                <p>缴纳电费送能量值</p>
+                <span>奖励50~1000能量值</span>
+            </div>
+            <div class="makeintro">
+                <p>缴纳电费送能量值</p>
+                <p class="nums"><span>1000</span>能量值</p>
+            </div>
+            <div class="makebottom">每月根据电费缴纳情况送能量值</div>
+        </div>
+
+        <div class="integrallist integrallist3">
+            <div class="makehead">
+                <p>电力趣味问答送能量值</p>
+                <span>奖励10能量值</span>
+            </div>
+            <div class="makeintro">
+                <p>电力趣味问答送能量值</p>
+                <p class="nums"><span>10</span>能量值</p>
+            </div>
+            <div class="makebottom">连续签到有惊喜</div>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        name: "makeIntegral",
+        components: {
+
+        },
+        data (){
+            return {
+
+            }
+        }
+    }
+</script>
+<style scoped type="text/css">
+    .integral{
+        position: relative;
+        background-color: #f0f0f0;
+        min-height: 100vh;
+    }
+    .integrallist{
+        position: relative;
+        display: flex;
+        padding: 15px;
+        flex-flow: column;
+        background-color: #fff;
+        border-bottom: 1px #dadada solid;
+    }
+    .makehead{
+        position: relative;
+        width: 345px;
+        height:120px;
+        background-image: url('https://pic.repaiapp.com/static/png/20180126/14/1516946696918625057.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        display: flex;
+        font-size: 15px;
+        color: #fff;
+        flex-flow: column;
+        justify-content: center;
+        padding-left:15px;
+        box-sizing: border-box;
+    }
+    .integrallist2 .makehead{
+        background-image: url('https://pic.repaiapp.com/static/png/20180126/14/1516947404714834997.png');
+    }
+    .integrallist3 .makehead{
+        background-image: url('https://pic.repaiapp.com/static/png/20180126/14/1516947441814799100.png');
+    }
+    .makehead p{
+        margin-bottom: 20px;
+    }
+    .makehead span{
+        font-size: 12px;
+    }
+    .makeintro{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 15px;
+        color: #000000;
+        margin:15px 0;
+    }
+    .makeintro .nums{
+        font-size: 13px;
+        color: #7f7e80;
+    }
+    .makeintro .nums span{
+        font-size: 18px;
+        color: #ea4c3c;
+    }
+    .makebottom{
+        font-size: 13px;
+        color: #7f7e80
+    }
+</style>
+

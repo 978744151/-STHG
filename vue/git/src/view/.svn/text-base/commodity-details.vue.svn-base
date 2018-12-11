@@ -1,0 +1,564 @@
+<template>
+    <div class="commodity">
+        <div class="commodity-info">
+            <div class="commodity-info-img">
+                <img :src="detailData.imgUrl" alt="">
+            </div>
+            <div class="commodity-info-text">
+                <p class="title">{{detailData.title}}</p>
+                <p class="money">积分换购：<span class="num">{{detailData.integral}}</span><span class="txt">积分</span></p>
+                <div class="other">
+                    <p>市场价：{{detailData.money}}元</p>
+                    <p>库存：{{detailData.stock}}</p>
+                    <p>发货：{{detailData.shippingAddress}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="commodity-explain">
+            <div class="title">
+                <p>详细说明</p>
+            </div>
+            <div class="content">
+                <div class="rule">
+                    <div class="rule-item">
+                        <p>兑换规则</p>
+                        <p>{{detailData.exchangeRules}}</p>
+                    </div>
+                    <div class="rule-item">
+                        <p>兑换详情</p>
+                        <p>{{detailData.exchangeDetail}}</p>
+                    </div>
+                </div>
+                <div class="table">
+                    <div class="table-switch clear">
+                        <p v-bind:class="{active:ImageText}" @click="switchTable(true)">图文详情</p>
+                        <p v-bind:class="{active:!ImageText}" @click="switchTable(false)">商品属性</p>
+                    </div>
+                    <div class="imageText-content" v-if="ImageText">
+                        <img :src="detailData.ImgText" alt="图文详情">
+                    </div>
+                    <div class="table-content" v-if="!ImageText">
+
+                        <div class="tables">
+                            <div class="tr">
+                                <div class="one">商品编号</div>
+                                <div class="two">{{detailData.property.number}}</div>
+                            </div>
+                            <div v-for="(item,index) in detailData.property.other">
+                                <div class="text">{{item.title}}</div>
+                                <div class="tr" v-for="(items,index) in item.list">
+                                    <div class="one">{{items.text}}</div>
+                                    <div class="two">{{items.detail}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="btn1">
+                <div class="kefu">
+                    <img src="../assets/commodity/icon-kefu.png"/>
+                    <p>客服</p>
+                </div>
+            </div>
+            <div class="btn1">
+                <div class="daizi">
+                    <img src="../assets/commodity/icon-daizi.png"/>
+                    <p>兑换带</p>
+                    <div>1</div>
+                </div>
+            </div>
+            <div class="btn2">加入购物车</div>
+            <div class="btn2 exchange" @click="buyRight">立即兑换</div>
+        </div>
+        <div class="choose" v-if="buy">
+            <div class="choose-content">
+                <div class="choose-top clear">
+                    <a class="close" href="javascript:void (0)" @click="closeBuyRight"></a>
+                    <div class="choose-img">
+                        <img :src="detailData.imgUrl" alt="图片">
+                    </div>
+                    <div class="choose-text">
+                        <p class="text1"><span>{{detailData.integral}}</span>积分</p>
+                        <p class="text2">市场价：￥{{detailData.money}}</p>
+                        <p class="text3">选择{{detailData.classifyText}}</p>
+                    </div>
+                </div>
+                <div class="choose-middle">
+                    <p class="title">{{detailData.classifyText}}</p>
+                    <button v-for="(item,index) in detailData.classify" @click="switchClass(item)" :class="{active:item.classId===classify.classId}" :disabled="item.stock===0">{{item.class}}</button>
+                </div>
+                <div class="choose-bottom">
+                    <p>购买数量</p>
+                    <div class="count"><button :disabled='buyNumber===1 || classify.stock===0' class="subtract" @click="subtractBuyNumber"></button><span class="num" :class="{outNum:classify.stock === 0}">{{buyNumber}}</span><button class="add outAdd" :disabled='classify.stock<=buyNumber || classify.stock===0' @click="addNumber"></button></div>
+                </div>
+                <button class="submit" @click="submitOrder" :disabled="classify.stock===0">提交</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "commodity-details",
+        data() {
+            /*
+            *  param {boolean} ImageText 图文详情 or 商品属性
+            *  param {boolean} buy 购买窗口
+            *  param {number} buyNumber 购买数量
+            * */
+            return {
+                subtract:false,
+                add:false,
+                ImageText:true,
+                buy:false,
+                buyNumber:1,
+                detailData:{},
+                classify:{}
+            }
+        },
+        methods:{
+            switchTable: function (bool) {
+                this.ImageText = bool
+            },
+            buyRight: function () {
+                this.buy = true
+            },
+            closeBuyRight: function () {
+                this.buy = false
+            },
+            subtractBuyNumber: function () {
+                if(this.buyNumber>1){
+                    this.buyNumber--
+                    this.buyNumber==1?this.subtract = true:''
+                }
+                this.add = false
+            },
+            addNumber: function () {
+                if(this.buyNumber<this.classify.stock){
+                    this.buyNumber++
+                    this.buyNumber==this.classify.stock?this.add = true:''
+                }
+                this.subtract = false
+            },
+            submitOrder: function () {
+                this.$router.push({name:'confirmOrder'})
+            },
+            getData() {
+                let _that = this
+                $.ajax({
+                    type:'GET',
+                    url:'/api/detai1',
+                    success(res) {
+                        console.log(res)
+                        _that.detailData = res.data
+                        _that.classify = res.data.classify[0]
+                    }
+                })
+            },
+            switchClass(item) {
+                this.classify = item
+                if(this.buyNumber>item.stock){
+                    this.buyNumber = item.stock
+                }
+            }
+        },
+        created() {
+            this.getData()
+        }
+    }
+</script>
+
+<style scoped>
+    /************************/
+    .tables{
+        width: 100%;
+        font-size: 13px;
+        color: #7f8184;
+        border: 1px solid #e7e7e7;
+    }
+    .tables .tr{
+        display: flex;
+        border-top: 1px solid #e7e7e7;
+    }
+    .tables .tr:first-child{
+        border: none;
+    }
+    .tables .tr .one{
+        width: 30%;
+        padding: 11px 0 11px 18px;
+        border-right: 1px solid #e7e7e7;
+    }
+    .tables .tr .two{
+        width: 70%;
+        padding: 11px 0 11px 10px;
+    }
+    .tables .text{
+        padding: 11px 0 11px 18px;
+        font-weight: bold;
+        color: #5d5d5d;
+        border-top: 1px solid #e7e7e7;
+    }
+
+
+
+    /*===================*/
+    .commodity{
+    }
+    button{
+        border: none;
+        outline: none;
+    }
+    /*商品图文信息*/
+    .commodity-info{
+        width: 100%;
+        height: 310.5px;
+        background: #fff;
+        border-bottom: 1px solid #dadada;
+        border-top: 1px solid #dadada;
+    }
+    .commodity-info .commodity-info-img{
+        height: 214px;
+        width: 100%;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid #dadada;
+    }
+    .commodity-info .commodity-info-img img{
+        max-height: 100%;
+        width: auto;
+    }
+    .commodity-info .commodity-info-text{
+        padding: 5px 10px 0 10px;
+        font-size: 14px;
+    }
+    .commodity-info .commodity-info-text .title{
+        font-weight: bold;
+        padding-left: 37px;
+        background-image: url("../assets/commodity/icon-shiwu.png");
+        background-repeat: no-repeat;
+        background-size: 32px 16px;
+        background-position: left center;
+    }
+    .commodity-info .commodity-info-text .money{
+        margin-top: 13px;
+    }
+    .commodity-info .commodity-info-text .num{
+        font-size: 18px;
+        font-weight: bold;
+        color: #ea4c3c;
+    }
+    .commodity-info .commodity-info-text .txt{
+        color: #ea4c3c;
+    }
+    .commodity-info .commodity-info-text .other{
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        color: #949494;
+    }
+    .commodity-info .commodity-info-text .other p:first-child{
+        text-decoration:line-through
+    }
+
+    /*商品详情*/
+    .commodity-explain{
+        margin-top: 10px;
+        background: #fff;
+    }
+    .commodity-explain .title{
+        font-size: 14px;
+        padding: 0 10px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #dadada;
+        border-bottom: 1px solid #dadada;
+    }
+    .commodity-explain .title p {
+        padding-left: 10px;
+        border-left: 3px solid #01377a;
+    }
+    .commodity-explain .content .rule{
+        padding: 20px;
+        font-size: 14px;
+        color: #949494;
+    }
+    .commodity-explain .rule-item{
+        margin-bottom: 10px;
+    }
+    .commodity-explain .rule-item:last-child{
+        margin: 0;
+    }
+    .commodity-explain .rule-item p:first-child{
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 10px;
+    }
+    .table{
+        width: 100%;
+        padding-bottom: 60px;
+    }
+    .table .table-switch{
+        color: #949494;
+        text-align: center;
+        line-height: 44px;
+        border-top: 1px solid #dadada;
+        border-bottom: 1px solid #dadada;
+    }
+    .table .table-switch p{
+        width: 50%;
+        float: left;
+        font-size: 16px;
+    }
+    .table .table-switch p:first-child{
+        border-right: 1px solid #dadada;
+    }
+    .table .imageText-content{
+        width: 100%;
+    }
+    .table .imageText-content img{
+        width: 100%;
+        height: auto;
+    }
+    .table .table-content{
+        padding: 20px 10px;
+    }
+    .table table{
+        width: 100%;
+        font-size: 13px;
+        color: #7f8184;
+        border-collapse: collapse;
+    }
+    .table table tr td{
+        padding: 11px 0;
+    }
+    .table table tr .one{
+        width: 30%;
+        padding-left: 18px;
+    }
+    .table table tr .two{
+        width: 70%;
+        padding-left: 10px;
+    }
+     table,tr,td{
+        border:1px solid #e7e7e7;
+    }
+    .table table .typeTitle{
+        font-weight: bold;
+        color: #5d5d5d;
+    }
+
+    /*页脚*/
+    .footer{
+        width: 100%;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid #dadada;
+        z-index: 5;
+    }
+    .footer>div{
+        float: left;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap-reverse;
+    }
+    .footer .btn1{
+        width: 21%;
+        font-size: 12px;
+        border-right: 1px solid #dadada;
+        line-height: 1;
+        text-align: center;
+        padding-top: 2px;
+    }
+    .footer .btn1 img{
+        display: inline-block;
+        margin: 0 auto;
+        height: auto;
+    }
+    .footer .kefu img{
+        width: 22px;
+    }
+    .footer .daizi{
+        position: relative;
+    }
+    .footer .daizi img{
+        width: 19.5px;
+    }
+    .footer .btn1 p{
+        margin-top: 4px;
+    }
+    .footer .daizi div{
+        position: absolute;
+        border-radius: 6rem;
+        background: red;
+        top: -2px;right: 0;
+        width: 14px;
+        text-align: center;
+        line-height: 14px;
+        color: #fff;
+    }
+    .footer .btn2{
+        font-size: 16px;
+        width: 29%;
+    }
+    .footer .exchange{
+        color: #fff;
+        background: #01377a;
+        border-left: 1px solid #dadada;
+    }
+
+    /*选购*/
+    .choose{
+        width: 100%;
+        position: fixed;
+        left: 0;right: 0;bottom: 0;top: 0;
+        z-index: 9;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    .choose .choose-content{
+        position: absolute;
+        bottom: 0;
+        left: 0;right: 0;
+        background: #fff;
+    }
+    .choose .choose-top{
+        padding: 7px 10px;
+        border-bottom: 1px solid #dadada;
+        position: relative;
+    }
+    .choose .choose-top .close{
+        position: absolute;
+        display: block;
+        width: 14px;
+        height: 14px;
+        right: 10px;
+        top: 10px;
+        background: url("../assets/close.png") no-repeat;
+        background-size: 100% 100%;
+    }
+    .choose .choose-top .choose-img{
+        width: 74px;
+        height: 74px;
+        border: 1px solid #d1cccf;
+        padding: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        float: left;
+    }
+    .choose .choose-top .choose-img img{
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+    }
+    .choose .choose-text{
+        float: left;
+        height: 74px;
+        padding: 6px 0 6px 10px;
+    }
+    .choose .choose-text .text1{
+        font-size: 14px;
+        color: #ea4c3c;
+    }
+    .choose .choose-text .text1 span{
+        font-size: 16px;
+    }
+    .choose .choose-text .text2{
+        font-size: 12px;
+        color: #b9b9b9;
+        text-decoration:line-through
+    }
+    .choose .choose-text .text3{
+        font-size: 13px;
+        margin-top: 10px;
+    }
+    .choose .choose-middle{
+        padding: 13px 10px 17px 10px;
+        border-bottom: 1px solid #dadada;
+    }
+    .choose .choose-middle .title{
+        font-size: 15px;
+    }
+    .choose .choose-middle button{
+        background: #f5f5f5;
+        text-align: center;
+        text-decoration: none;
+        font-size: 12px;
+        border-radius: 13px;
+        margin-right: 12.5px;
+        padding: 8px 16px;
+        line-height: 1;
+        margin-top: 10px;
+        color: #000;
+    }
+    .choose .choose-middle button[disabled]{
+        background: #f5f5f5;
+        color: #b0b0b0;
+    }
+    .choose .choose-bottom{
+        height: 68px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+    }
+    .choose .choose-bottom .count{
+        display: flex;
+        align-items: center;
+    }
+    .choose .choose-bottom .subtract,.choose .choose-bottom .add{
+        display: inline-block;
+        width: 22px;height: 22px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    .choose .choose-bottom .subtract{
+        background-image: url("../assets/commodity/icon-subtract.png");
+    }
+    .choose .choose-bottom .subtract[disabled]{
+        background-image: url("../assets/commodity/icon-outSubtract.png");
+    }
+    .choose .choose-bottom .add{
+        background-image: url("../assets/commodity/icon-add.png");
+    }
+    .choose .choose-bottom .add[disabled]{
+        background-image: url("../assets/commodity/icon-outAdd.png");
+    }
+    .choose .choose-bottom .num{padding: 0 15px}
+    .choose .submit{
+        width: 100%;
+        line-height: 48px;
+        color: #fff;
+        background: #123676;
+        text-align: center;
+        font-size: 15px;
+    }
+    .choose .submit[disabled]{
+        background: #b9b9b9;
+    }
+
+    /*状态Class*/
+    .table .table-switch .active{  /*图文详情、商品属性*/
+        color: #123676;
+        background: #f2f6fe;
+    }
+    .choose .choose-middle .active{  /*商品属性选中*/
+        background: #123676;
+        color: #fff;
+    }
+    .choose .choose-bottom .outNum{ /*不可购买时商品数量颜色*/
+        color: #b0b0b0;
+    }
+</style>

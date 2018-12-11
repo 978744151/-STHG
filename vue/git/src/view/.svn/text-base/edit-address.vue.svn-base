@@ -1,0 +1,78 @@
+<template>
+    <div class="edit">
+        <div class="edit-box">
+            <span>收货人：</span><input type="text" placeholder="收货人姓名">
+        </div>
+        <div class="edit-box">
+            <span>手机号码：</span><input type="text" placeholder="收货人电话">
+        </div>
+        <div class="edit-box selectImg">
+            <span>所在地区：</span><input type="text" disabled placeholder="">
+            <img src="../assets/icon-back.png" alt="">
+        </div>
+        <div class="edit-box" style="border: none">
+            <span>详细地址：</span><input type="text" placeholder="请填写收货人详细地址">
+        </div>
+        <button class="submit" @click="submit()">保存</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "edit-address",
+        data() {
+            return {
+
+            }
+        },
+        methods: {
+            submit: function () {
+                this.$router.go(-1)
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .edit{
+        padding-left: 15px;
+        background: #fff;
+    }
+    .edit-box{
+        height: 50px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #dadada;
+    }
+
+    .edit-box span{
+        display: inline-block;
+        width: 70px;
+        line-height: 40px;
+    }
+    .edit-box input{
+        flex: 1;
+        outline: none;
+        border: none;
+        height: 40px;
+        padding-right: 10px;
+    }
+    .submit{
+        background: #123676;
+        color: #fff;
+        font-size: 18px;
+        height: 48px;
+        position: fixed;
+        bottom: 0;left: 0;right: 0;
+        width: 100%;
+    }
+    .selectImg img{
+        width: 10px;height: auto;
+        position: relative;
+        right: 10px;
+    }
+    input[disabled]{
+        background: #fff;
+    }
+</style>

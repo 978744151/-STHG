@@ -1,0 +1,39 @@
+{
+    "id":"1",
+    "imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517305121914625748.png",
+    "title":"公牛插座1.8米GN-607接地板插线",
+    "integral":20,
+    "money":198,
+    "stock":1000,
+    "shippingAddress":"广东",
+    "exchangeRules":"需要会员等级为钻石会员，账户积分不少于3000分，必须是背景户口，家庭资产不少于10 bill",
+    "exchangeDetail":"兑换后可得钻石VIP，1-7个工作日内发货，请您耐心等待。如有疑问可以联系客服",
+    "ImgText":"https://pic.repaiapp.com/static/png/20180131/10/1517364398240379854.png",
+    "property":{
+        "number":"123456",
+        "other":[
+            {
+                "title":"规格",
+                "list":[
+                    {"text":"额定电压","detail":"220V"},
+                    {"text":"额定电流","detail":"10A"},
+                    {"text":"额定功率","detail":"2500W"},
+                    {"text":"插孔数量","detail":"四位"}
+                ]
+            },
+            {
+                "title":"主体",
+                "list":[
+                    {"text":"品牌","detail":"公牛[BULL]"}
+                ]
+            }
+        ]
+    },
+    "classifyText":"颜色分类",
+    "classify":[
+        {"class":"101 4插4米","stock":10,"classId":"1"},
+        {"class":"102 4插5米","stock":5,"classId":"2"},
+        {"class":"103 4插6米","stock":3,"classId":"3"},
+        {"class":"105 4插7米","stock":0,"classId":"4"}
+    ]
+}

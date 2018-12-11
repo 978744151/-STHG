@@ -1,0 +1,86 @@
+{
+    "virtual":[
+        {
+            "id":"1",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727973343824.jpeg",
+            "title":"爱奇艺    VIP会员",
+            "color":"绿色",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        },
+        {
+            "id":"2",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727973343824.jpeg",
+            "title":"爱奇艺    VIP会员",
+            "color":"绿色",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        },
+        {
+            "id":"3",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727973343824.jpeg",
+            "title":"爱奇艺    VIP会员",
+            "color":"绿色",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        },
+        {
+            "id":"4",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727973343824.jpeg",
+            "title":"爱奇艺    VIP会员",
+            "color":"绿色",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        }
+    ],
+    "kind":[
+        {
+            "id":"5",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727961682032.png",
+            "title":"iPhone X 256G",
+            "color":"土豪金绿色",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        },
+        {
+            "id":"6",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727961682032.png",
+            "title":"iPhone X 256G",
+            "color":"土豪绿",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        },
+        {
+            "id":"7",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727961682032.png",
+            "title":"iPhone X 256G",
+            "color":"土豪金绿",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        },
+        {
+            "id":"8",
+            "imgUrl":"https://pic.repaiapp.com/pic/15/17/27/151727961682032.png",
+            "title":"iPhone X 256G",
+            "color":"土豪金",
+            "integral":2000,
+            "money":998,
+            "number":1,
+            "isSelected":false
+        }
+    ]
+}

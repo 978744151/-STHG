@@ -1,0 +1,347 @@
+<template>
+    <div class="loginBg" v-if="options.isShow">
+        <div class="login-box" v-if="options.isLogin">
+            <img class="close" src="../assets/close.png" alt="" @click="close">
+            <ul class="loginTab">
+                <li><span v-bind:class="{borderSpan:options.loginPhone}" @click="switchLogin(true)">手机登录</span></li>
+                <li><span v-bind:class="{borderSpan:!options.loginPhone}" @click="switchLogin(false)">账号登录</span></li>
+            </ul>
+            <div class="input-box" v-if="options.loginPhone">
+                <div class="input-box-phone">
+                    <input type="text" placeholder="请填写手机号码">
+                </div>
+                <div class="input-box-code">
+                    <div class="input">
+                        <input type="text" placeholder="请填写动态密码">
+                    </div>
+                    <a href="javascript:void (0)">点击获取</a>
+                </div>
+                <a class="login-btn" href="javascript:void (0)" v-on:click="signIn">立即登录</a>
+                <p @click="register">没有账号？立即注册＞</p>
+            </div>
+            <div class="input-box" v-if="!options.loginPhone">
+                <div class="input-box-account">
+                    <input type="text" placeholder="请填写账号">
+                </div>
+                <div class="input-box-acountPW">
+                    <input type="password" placeholder="请填写密码">
+                </div>
+                <a class="login-btn" href="javascript:void (0)">立即登录</a>
+                <p @click="register">没有账号？立即注册＞</p>
+            </div>
+            <div class="other-logins">
+                <div class="title"><span>第三方登录</span></div>
+                <div class="other-logins-btn">
+                    <a href="javascript:void (0)" class="qq"></a>
+                    <a href="javascript:void (0)" class="wx"></a>
+                    <a href="javascript:void (0)" class="wb"></a>
+                </div>
+            </div>
+        </div>
+        <div class="register" v-if="!options.isLogin">
+            <img class="close" src="../assets/close.png" alt="" @click="close">
+            <img class="back" src="../assets/back.png" alt="" @click="back">
+            <div class="title"><p>注册</p></div>
+            <div class="input-box">
+                <div class="input-box-phone">
+                    <input type="text" placeholder="请填写手机号码">
+                </div>
+                <div class="input-box-code">
+                    <div class="input">
+                        <input type="text" placeholder="请填写动态密码">
+                    </div>
+                    <a href="javascript:void (0)">点击获取</a>
+                </div>
+                <div class="input-box-account">
+                    <input type="text" placeholder="请填写账号">
+                </div>
+                <div class="input-box-password">
+                    <input type="text" placeholder="请填写密码">
+                </div>
+                <div class="input-box-bindName">
+                    <input type="text" placeholder="请填写需要绑定的用户号（选填）">
+                </div>
+                <a href="javascript:void (0)">完成注册</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "login",
+        props: ['option'],
+        data() {
+            return{
+                options:this.option,
+            }
+        },
+        methods: {
+            switchLogin(type) {
+                this.options.loginPhone=type
+            },
+            close() {
+                this.options.isShow=false
+            },
+            back() {
+                this.options.isLogin=true
+            },
+            register() {
+                this.options.isLogin=false
+            },
+            signIn() {
+                let _that = this;
+                $.ajax({
+                    url:'/api/user',
+                    success(res) {
+                        _that.$emit('loginSuccess',res)
+                    }
+                })
+
+            }
+        },
+    }
+</script>
+
+<style scoped>
+    .loginBg{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;right: 0;top: 0;bottom: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 99;
+        display: flex;
+        display: -webkit-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-box,.register{
+        width: 338px;
+        background: #fff;
+        position: relative;
+    }
+    .login-box .close,.register .close{
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        right: 12.5px;top: 12.5px;
+    }
+    .login-box .loginTab{
+        list-style: none;
+        border-bottom: 1px solid #d8d8d8;
+        margin-top: 25px;
+        margin-bottom: 29px;
+    }
+    .login-box .loginTab::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .login-box .loginTab li{
+        width: 50%;
+        float: left;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 30px;
+    }
+    .login-box .loginTab span{
+        display: inline-block;
+        padding: 0 2px;
+        font-weight: bold;
+    }
+    .login-box .loginTab .borderSpan{
+        border-bottom: 2px solid #123676;
+    }
+    .login-box .input-box,.register .input-box{
+        padding: 0 22px 0 22px;
+    }
+    .login-box .input-box-phone,.login-box .input-box-account,.login-box .input-box-acountPW,
+    .register .input-box-phone,.register .input-box-account,.register .input-box-password,.register .input-box-bindName{
+        border: 1px solid #d8d8d8;
+        height: 39px;
+        padding-left: 39px;
+        background-image: url("../assets/login/phone.png");
+        background-repeat: no-repeat;
+        background-size: 16.5px 23.5px;
+        background-position: 12px center;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .login-box .input-box-phone::before,.login-box .input-box-account::before,.login-box .input-box-acountPW::before,
+    .register .input-box-phone::before,.register .input-box-account::before,.register .input-box-password::before,.register .input-box-bindName::before{
+        content: '';
+        height: 100%;
+        width: 1px;
+        position: absolute;
+        left: 39px;
+        top: 0;bottom: 0;
+        background: #d8d8d8;
+    }
+    .login-box .input-box-phone input,.login-box .input-box-account input,.login-box .input-box-acountPW input,
+    .register .input-box-phone input,.register .input-box-account input,.register .input-box-password input,.register .input-box-bindName input{
+        border: none;
+        outline: none;
+        font-size: 13px;
+        padding:0 10px;
+        width: 100%;
+    }
+    .login-box .input-box-account,.register .input-box-account{
+        background-image: url("../assets/login/account.png");
+        background-size: 21px 21px;
+        background-position: 10px center;
+    }
+    .login-box .input-box-acountPW{
+        margin-top: 18px;
+        background-image: url("../assets/login/password.png");
+        background-size: 17px 20px;
+    }
+    .login-box .input-box-code,.register .input-box-code{
+        width: 100%;
+        height: 39px;
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        background-image: url("../assets/login/password.png");
+        background-repeat: no-repeat;
+        background-size: 17px 20px;
+        background-position: 12px center;
+    }
+    .login-box .input-box-code .input,.register .input-box-code .input{
+        width: 185px;
+        height: 100%;
+        border: 1px solid #d8d8d8;
+        padding-left: 39px;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .login-box .input-box-code .input::before,.register .input-box-code .input::before{
+        content: '';
+        height: 100%;
+        width: 1px;
+        position: absolute;
+        left: 39px;
+        top: 0;bottom: 0;
+        background: #d8d8d8;
+    }
+    .login-box .input-box-code input,.register .input-box-code input{
+        width: 100%;
+        border: none;
+        outline: none;
+        padding:0 10px;
+        font-size: 13px;
+    }
+    .login-box .input-box-code a,.register .input-box-code a{
+        display: inline-block;
+        width: 104px;
+        background: #123676;
+        font-size: 14px;
+        color: #fff;
+        text-align: center;
+        line-height: 39px;
+        text-decoration: none;
+    }
+    .login-box .login-btn,.register .input-box>a{
+        display: inline-block;
+        background: #123676;
+        text-align: center;
+        line-height: 44px;
+        text-decoration: none;
+        width: 100%;
+        color: #fff;
+        font-size: 17px;
+        margin-top: 29px;
+    }
+    .input-box>p{
+        font-size: 14px;
+        text-align: center;
+        margin-top: 14px;
+        margin-bottom: 27px;
+    }
+
+    /*other*/
+    .other-logins{
+        width: 100%;
+        height: 74px;
+    }
+    .other-logins .title{
+        color: #ababab;
+        font-size: 10px;
+        text-align: center;
+        position: relative;
+    }
+    .other-logins .title span{
+        padding: 0 10px;
+        z-index: 9;
+        position: relative;
+        background: #fff;
+    }
+    .other-logins .title::after{
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        background: #e4e4e4;
+        left: 0;
+        right: 0;
+        top: 50%;
+        z-index: 1;
+    }
+    .other-logins .other-logins-btn{
+        width: 100%;
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 60px;
+    }
+    .other-logins .other-logins-btn a{
+        display: inline-block;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background-size: auto 34px;
+        background-repeat: no-repeat;
+        background-image: url("../assets/login/other.png");
+    }
+    .other-logins .other-logins-btn .qq{
+        background-position: left center;
+    }
+    .other-logins .other-logins-btn .wx{
+        background-position: center center;
+    }
+    .other-logins .other-logins-btn .wb{
+        background-position: right center;
+    }
+
+    /*register*/
+    .register .title{
+        height: 84px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 40px;
+    }
+    .register .input-box>div{
+        margin-bottom: 18px;
+    }
+    .register .input-box>a{
+        margin: 0 0 27px 0
+    }
+    .register .back{
+        height: 16px;
+        width: auto;
+        position: absolute;
+        left: 12.5px;top: 12.5px;
+    }
+    .register .input-box-password{
+        background-image: url("../assets/login/password.png");
+        background-size: 17px 20px;
+    }
+    .register .input-box-bindName{
+        background-image: url("../assets/login/shandian.png");
+        background-size: 15.5px 15.5px;
+    }
+</style>

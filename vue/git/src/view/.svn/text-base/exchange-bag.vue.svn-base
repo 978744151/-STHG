@@ -1,0 +1,556 @@
+<template>
+    <div class="bag">
+        <div v-if="!isEmpty">
+            <div class="bag-position">
+                <p>广东广州</p>
+                <p @click="edit">{{isEdit?'完成':'编辑'}}</p>
+            </div>
+            <!--虚拟-->
+            <div class="bag-list xuni">
+                <div class="title radio" :class="allsel1==1?'radioActive':''" @click="allChange(allsel1,allsel2,0)"><img src="../assets/icon-xuni.png"/>虚拟商品</div>
+                <div class="bag-list-item radio " v-for="(item,index) in list.xuni" :class="item.sel==1?'radioActive':''" @click="change(index,0)" :data-index="index">
+                    <div class="bag-item-img">
+                        <img src="../assets/mall/mall-img2.png" alt="">
+                    </div>
+                    <div class="text">
+                        <p class="one">爱奇艺VIP黄金会员12个月,爱奇金会员12个月,爱奇金会员12个月,爱奇</p>
+                        <p class="two">颜色分类：年卡</p>
+                        <p class="three"><span>{{item.integral}}</span>积分<span>市场价：￥198</span></p>
+                    </div>
+                    <div class="selectNum">
+                        <button class="subtract" @click="add(index,0,0)" :data-state="0"></button>
+                        <span class="num">{{item.num}}</span>
+                        <button class="add outAdd" @click="add(index,1,0)" :data-state="1"></button>
+                    </div>
+                </div>
+            </div>
+            <!--实物-->
+            <div class="bag-list shiwu">
+                <div class="title radio" :class="allsel2==1?'radioActive':''" @click="allChange(allsel2,allsel2,1)"><img src="../assets/icon-shiwu.png"/>实体商品</div>
+                <div class="bag-list-item radio " v-for="(item,index) in list.shiwu" :class="item.sel==1?'radioActive':''" @click="change(index,1)" :data-index="index">
+                    <div class="bag-item-img">
+                        <img src="../assets/mall/mall-img2.png" alt="">
+                    </div>
+                    <div class="text">
+                        <p class="one">爱奇艺VIP黄金会员12个月,爱奇金会员12个月,爱奇金会员12个月,爱奇</p>
+                        <p class="two">颜色分类：年卡</p>
+                        <p class="three"><span>{{item.integral}}</span>积分<span>市场价：￥198</span></p>
+                    </div>
+                    <div class="selectNum">
+                        <button class="subtract" @click="add(index,0,1)"></button>
+                        <span class="num">{{item.num}}</span>
+                        <button class="add outAdd" @click="add(index,1,1)"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer" v-if="!isEdit">
+                <div class="text radio " @click="footerChange(allchangesNum)" :data-allchangesNum="allchangesNum" :class="allNum!=0?'radioActive':''"><p>共{{allNum}}件</p>
+                    <p>合计：<span class="num">{{allintegral}}</span><span>积分</span></p></div>
+                <div class="btn">提交订单</div>
+            </div>
+            <div class="footer" v-if="isEdit">
+                <div class="del radio" >
+                    <p>全选</p>
+                    <button>删除</button>
+                </div>
+            </div>
+        </div>
+        <div class="empty" v-if="isEmpty">
+            <img src="../assets/bag-none.png" alt="">
+        </div>
+        <mallBar :nav="navOption"></mallBar>
+    </div>
+</template>
+
+<script>
+    import mallBar from '../components/mall-bar'
+    export default {
+        name: "exchange-bag",
+        components: {
+            mallBar,
+
+        },
+        data() {
+            return {
+                selected:'',
+                allsel1:0,
+                allsel2:0,
+                changesNum1:0,
+                changesNum2:0,
+                allchangesNum:0,
+                allNum1:0,
+                allNum2:0,
+                allNum:0,
+                allintegral1:0,
+                allintegral2:0,
+                allintegral:0,
+                totalfooter:0,
+                navOption: {
+                    index:1,
+                },
+                list:{
+                    xuni:[
+                        {id:1,num:4,sel:0,integral:1},
+                        {id:2,num:3,sel:0,integral:2},
+                        {id:3,num:2,sel:0,integral:3},
+                        {id:4,num:1,sel:0,integral:4}
+                    ],
+                    shiwu:[
+                        {id:5,num:1,sel:0,integral:1},
+                        {id:6,num:2,sel:0,integral:2},
+                        {id:7,num:3,sel:0,integral:3},
+                        {id:8,num:4,sel:0,integral:4}
+                    ]
+                },
+                isEmpty:false,
+                isEdit:false
+            }
+        },
+        methods: {
+            edit: function () {
+                this.isEdit=!this.isEdit
+            },
+            //商品单选 1代表实 0代表虚
+            change:function(index,virtual){
+                var _this=this;
+                
+                if(virtual==0){
+                    _this.allNum1=0;
+                    _this.allintegral1=0;
+                    for(var i in _this.list.xuni){
+                        if(index==i){
+                            if(_this.list.xuni[i].sel==1){
+                                _this.list.xuni[i].sel=0;
+                                _this.changesNum1-=1;
+                            }else{
+                                _this.list.xuni[i].sel=1;
+                                _this.allsel1=1;
+                                _this.changesNum1+=_this.list.xuni[i].sel;
+                            }
+                        }
+                    }
+                    if(_this.changesNum1==0){_this.allsel1=0}
+                    for(var i in _this.list.xuni){
+                        if(_this.list.xuni[i].sel==1){
+                            _this.allNum1+=_this.list.xuni[i].num;
+                            _this.allintegral1+=_this.list.xuni[i].num*_this.list.xuni[i].integral
+                        }
+                        
+                    }
+                    _this.allintegral=_this.allintegral1+_this.allintegral2
+                    _this.allNum=_this.allNum1+_this.allNum2
+                    _this.list.xuni=_this.list.xuni;
+                }else{
+                    _this.allNum2=0;
+                    _this.allintegral2=0;
+                    for(var i in _this.list.shiwu){
+                        if(index==i){
+                            if(_this.list.shiwu[i].sel==1){
+                                _this.list.shiwu[i].sel=0;
+                                _this.changesNum2-=1;
+                            }else{
+                                _this.list.shiwu[i].sel=1;
+                                _this.allsel2=1;
+                                _this.changesNum2+=_this.list.shiwu[i].sel;
+                            }
+                        }
+                    }
+                    if(_this.changesNum2==0){_this.allsel2=0}
+                         for(var i in _this.list.shiwu){
+                        if(_this.list.shiwu[i].sel==1){
+                            _this.allNum2+=_this.list.shiwu[i].num;
+                            _this.allintegral2+=_this.list.shiwu[i].num*_this.list.shiwu[i].integral
+                        }
+                        
+                    }
+                    _this.allintegral=_this.allintegral1+_this.allintegral2
+                    _this.allNum=_this.allNum1+_this.allNum2
+                    _this.list.shiwu=_this.list.shiwu;
+                }
+                
+            },
+            //头部选择
+            allChange:function(allsel1,allsel2,virtual){
+                var _this=this;
+                if(virtual==0){
+                    if(allsel1==1){
+                        //全部取消
+                        for(var i in _this.list.xuni){
+                             _this.list.xuni[i].sel=0;
+                             _this.allsel1=0;
+                            _this.changesNum1=0;
+                        }
+                        _this.allNum1=0;
+                        _this.allintegral1=0;
+                        _this.allNum=_this.allNum1+_this.allNum2;
+                        _this.allintegral=_this.allintegral1+_this.allintegral2
+                    }else{
+                        //全部选择
+                        for(var i in _this.list.xuni){
+                             _this.list.xuni[i].sel=1;
+                             _this.allsel1=1;
+                            _this.changesNum1=_this.list.xuni.length;
+                            _this.allNum1+=_this.list.xuni[i].num;
+                            _this.allintegral1+=_this.list.xuni[i].num*_this.list.xuni[i].integral
+                        }
+                    }
+                    // _this.allNum1=_this.list.xuni.length;
+                    _this.allNum=_this.allNum1+_this.allNum2;
+                    _this.list.xuni=_this.list.xuni;
+                    _this.allintegral=_this.allintegral1+_this.allintegral2;
+                }else{
+                    if(allsel2==1){
+                        for(var i in _this.list.shiwu){
+                             _this.list.shiwu[i].sel=0;
+                             _this.allsel2=0;
+                            _this.changesNum2=0;
+                        }
+                        _this.allNum2=0;
+                        _this.allintegral2=0;
+                        _this.allNum=_this.allNum1+_this.allNum2;
+                        _this.allintegral=_this.allintegral1+_this.allintegral2
+                    }else{
+                        for(var i in _this.list.shiwu){
+                             _this.list.shiwu[i].sel=1;
+                             _this.allsel2=1;
+                            _this.changesNum2=_this.list.shiwu.length;
+                             _this.allNum2+=_this.list.shiwu[i].num;
+                             _this.allintegral2+=_this.list.shiwu[i].num*_this.list.shiwu[i].integral
+                        }
+                    }
+                    _this.allNum=_this.allNum1+_this.allNum2
+                    _this.list.shiwu=_this.list.shiwu;
+                    _this.allintegral=_this.allintegral1+_this.allintegral2;
+                }
+            },
+            //加 &&减
+            add:function(index,state,virtual,ev){
+                var _this=this;
+                var oEvent = ev || event;
+                this.stopBubble(oEvent);
+                // console.log(index)
+                if(virtual==0){
+                    for(var i in _this.list.xuni){
+                        if(index==i){
+                            if(state==1){
+                                _this.list.xuni[i].num+=1;
+                            }else{
+                                if( _this.list.xuni[i].num>1){
+                                    _this.list.xuni[i].num-=1;
+                                }else{
+                                    _this.list.xuni[i].num=1;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    _this.list.xuni=_this.list.xuni;
+                }else{
+                     for(var i in _this.list.shiwu){
+                        if(index==i){
+                            if(state==1){
+                                _this.list.shiwu[i].num+=1;
+                            }else{
+                                if( _this.list.shiwu[i].num>1){
+                                    _this.list.shiwu[i].num-=1;
+                                }else{
+                                    _this.list.shiwu[i].num=1;
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    _this.list.shiwu=_this.list.shiwu;
+                }
+
+            },
+            //底部全选
+            footerChange:function(allchangesNum){
+                console.log(allchangesNum);
+                var _this=this;
+                //全选
+                if(allchangesNum==0){
+                    for(var i in _this.list.xuni){
+                        _this.list.xuni[i].sel=1;
+                        _this.allNum1+=_this.list.xuni[i].num;
+                        _this.changesNum1+=_this.list.xuni[i].sel;
+                    }
+                    for(var i in _this.list.shiwu){
+                        _this.list.shiwu[i].sel=1;
+                        _this.allNum2+=_this.list.shiwu[i].num
+                        _this.changesNum2+=_this.list.shiwu[i].sel;
+                    }
+
+                    _this.allchangesNum=1;
+                    // _this.changesNum2=1;
+                    // _this.changesNum1=1;
+                    _this.allsel1=1;
+                    _this.allsel2=1;
+                    _this.allNum=_this.allNum1+_this.allNum2
+                }else{
+                    //全部取消
+                    for(var i in _this.list.xuni){
+                        _this.list.xuni[i].sel=0;
+                        _this.changesNum1=0;
+                    }
+                    for(var i in _this.list.shiwu){
+                        _this.list.shiwu[i].sel=0;
+                        _this.changesNum2=0;
+                    } 
+                    _this.allchangesNum=0;
+                    // _this.changesNum2=0;
+                    // _this.changesNum1=0;
+                    _this.allsel1=0;
+                    _this.allsel2=0;
+                    _this.allNum1=0;
+                    _this.allNum2=0
+                    _this.allNum=_this.allNum1+_this.allNum2;
+                }
+                _this.list.shiwu=_this.list.shiwu;
+                _this.list.xuni=_this.list.xuni;
+            },
+            //阻止冒泡
+            stopBubble:function(e){
+                if(e && e.stopPropagation) { //非IE 
+                  e.stopPropagation(); 
+                } else { //IE 
+                  window.event.cancelBubble = true; 
+                }
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .radio {
+        background-image: url("../assets/icon-radio.png");
+        background-size: 20px auto;
+        background-repeat: no-repeat;
+        background-position: 10px center;
+    }
+
+    .radioActive {
+        background-image: url("../assets/icon-radio-active.png");
+    }
+
+    .bag{
+        padding-bottom: 130px;
+    }
+    .empty{
+        text-align: center;
+    }
+    .empty img{
+        margin-top: 160px;
+        width: 120px;
+        height: auto;
+        display: inline-block;
+    }
+    .bag-position {
+        height: 44px;
+        padding: 0 10px 0 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 15px;
+        color: #6d717a;
+        background-color: #f2f6fe;
+        background-image: url("../assets/icon-position.js.png");
+        background-repeat: no-repeat;
+        background-size: auto 16px;
+        background-position: 12px center;
+    }
+
+    .bag-position p:last-child {
+        color: #123676;
+    }
+
+    /*list*/
+    .bag-list {
+        background-color: #fff;
+    }
+
+    .bag-list .title {
+        padding-left: 42px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        height: 44px;
+    }
+
+    .bag-list .title img {
+        width: 32px;
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .bag-list-item {
+        padding: 10px 10px 10px 42px;
+        border-top: 1px solid #dadada;
+        display: flex;
+        position: relative;
+    }
+
+    .bag-list-item .bag-item-img {
+        width: 79px;
+        height: 79px;
+        border: 1px solid #bec2c9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+    }
+
+    .bag-list-item .bag-item-img img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    .bag-list-item .text {
+        height: 79px;
+        padding-left: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 13px;
+        overflow: hidden;
+    }
+
+    .bag-list-item .text .one {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .bag-list-item .text .two {
+        font-size: 12px;
+        color: #949494;
+    }
+
+    .bag-list-item .text .three {
+        color: #ea4c3c;
+    }
+
+    .bag-list-item .text .three span:first-child {
+        font-size: 16px;
+    }
+
+    .bag-list-item .text .three span:last-child {
+        font-size: 11px;
+        color: #96989a;
+        margin-left: 5px;
+    }
+
+    .bag-list-item .selectNum {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .bag-list-item .selectNum button {
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .bag-list-item .selectNum .subtract {
+        background-image: url("../assets/commodity/icon-subtract.png");
+        /*display: none;*/
+        /*opacity: 0;*/
+    }
+
+    .bag-list-item .selectNum .subtract[disabled] {
+        background-image: url("../assets/commodity/icon-outSubtract.png");
+    }
+
+    .bag-list-item .selectNum .add {
+        background-image: url("../assets/commodity/icon-add.png");
+    }
+
+    .bag-list-item .selectNum .add[disabled] {
+        background-image: url("../assets/commodity/icon-outAdd.png");
+    }
+
+    .bag-list-item .selectNum .num {
+        padding: 0 12px;
+        font-size: 14px
+    }
+    .bag-list-item .selectNum .subtract .block{
+        /*display: block;*/
+    }
+
+    /*实物列表*/
+    .shiwu {
+        margin-top: 5px;
+    }
+
+    /*footer*/
+    .footer {
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #dadada;
+        font-size: 14px;
+        background: #fff;
+        position: fixed;
+        bottom: 50px;
+    }
+
+    .footer .text {
+        width: 71%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5px 0 35px;
+    }
+
+    .footer .text p:last-child {
+        font-size: 15px;
+    }
+
+    .footer .text p:last-child span {
+        color: #ea4c3c
+    }
+
+    .footer .text .num {
+        font-size: 16px;
+    }
+
+    .footer .btn {
+        width: 29%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #123676;
+        color: #fff;
+    }
+    /*编辑*/
+    .footer .del {
+        width: 100%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px 0 35px;
+    }
+    .footer .del button{
+        width: 78px;
+        height: 34px;
+        border: 1px solid #123676;
+        color: #123676;
+        border-radius: 4px;
+        background: #fff;
+    }
+</style>

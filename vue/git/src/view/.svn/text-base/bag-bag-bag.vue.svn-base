@@ -1,0 +1,442 @@
+<template>
+    <div class="bag">
+        <div v-if="!isEmpty">
+            <div class="bag-position">
+                <p>广东广州</p>
+                <p @click="edit">{{isEdit?'完成':'编辑'}}</p>
+            </div>
+            <!--虚拟-->
+            <div class="bag-list xuni">
+                <div class="title radio" @click="selectAllGoods('virtual')" :class="{radioActive:isVirtualAll}"><img src="../assets/icon-xuni.png"/>虚拟商品</div>
+                <div class="bag-list-item radio" v-for="(item,index) in list.virtual" @click="selectGoods(index,item,'virtual')" :class="{radioActive:item.isSelected}">
+                    <div class="bag-item-img">
+                        <img :src="item.imgUrl" alt="">
+                    </div>
+                    <div class="text">
+                        <p class="one">{{item.title}}</p>
+                        <p class="two">颜色分类：{{item.color}}</p>
+                        <p class="three"><span>{{item.integral}}</span>积分<span>市场价：￥{{item.money}}</span></p>
+                    </div>
+                    <div class="selectNum">
+                        <button class="subtract" @click.stop="reduce(index,item,'virtual')"></button>
+                        <span class="num">{{item.number}}</span>
+                        <button class="add outAdd" @click.stop="add(index,item,'virtual')"></button>
+                    </div>
+                </div>
+            </div>
+            <!--实物   radioActive-->
+            <div class="bag-list shiwu">
+                <div class="title radio" @click="selectAllGoods('kind')" :class="{radioActive:isKindAll}"><img src="../assets/icon-shiwu.png"/>虚拟商品</div>
+                <div class="bag-list-item radio" v-for="(item,index) in list.kind" @click="selectGoods(index,item,'kind')" :class="{radioActive:item.isSelected}">
+                    <div class="bag-item-img">
+                        <img :src="item.imgUrl" alt="">
+                    </div>
+                    <div class="text">
+                        <p class="one">{{item.title}}</p>
+                        <p class="two">颜色分类：{{item.color}}</p>
+                        <p class="three"><span>{{item.integral}}</span>积分<span>市场价：￥{{item.money}}</span></p>
+                    </div>
+                    <div class="selectNum">
+                        <button class="subtract" @click.stop="reduce(index,item,'kind')"></button>
+                        <span class="num">{{item.number}}</span>
+                        <button class="add outAdd" @click.stop="add(index,item,'kind')"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer" v-if="!isEdit">
+                <div class="text radio" :class="{radioActive:selectedId.length !== 0}"><p>共{{selectedId.length}}件</p>
+                    <p>合计：<span class="num">{{totalAmount}}</span><span>积分</span></p></div>
+                <div class="btn" @click="submitOrder">提交订单</div>
+            </div>
+            <div class="footer" v-if="isEdit">
+                <div class="del radio">
+                    <p  @click="selectAll" >全选</p>
+                    <button>删除</button>
+                </div>
+            </div>
+        </div>
+        <div class="empty" v-if="isEmpty">
+            <img src="../assets/bag-none.png" alt="">
+        </div>
+        <mallBar :nav=1></mallBar>
+    </div>
+</template>
+
+<script>
+    import mallBar from '../components/mall-bar'
+    export default {
+        name: "bag-bag-bag",
+        components: {
+            mallBar
+        },
+        data() {
+            return {
+                /*
+                * param {obj} list 兑换袋商品信息
+                * param {boolean} isEmpty 兑换袋是否为空
+                * param {boolean} isEdit 是否编辑
+                * param {arr} selectedId 所选中商品Id
+                * param {number} totalAmount  所选商品总价
+                * param {boolean} isVirtualAll 虚拟商品是否全选
+                * param {boolean} isKindAll 实物是否全选
+                * param {boolean} isAll 是否全选
+                * */
+                list:{},
+                isEmpty:false,
+                isEdit:false,
+                selectedId:[],
+                totalAmount:0,
+                isVirtualAll:false,
+                isKindAll:false,
+                isAll:false
+            }
+        },
+        methods: {
+            edit: function () {
+                this.isEdit=!this.isEdit
+            },
+            getBagList() {  //获取兑换袋列表
+                let _that = this;
+                $.ajax({
+                    type:'GET',
+                    url:'/api/bagList',
+                    success(res) {
+                        _that.list = res.data
+                    }
+                })
+            },
+            selectGoods(index,item,type) {  //单个选中商品
+                if(item.isSelected) {
+                    this.list[type][index].isSelected=false
+                    let selectedId = this.selectedId
+                    this.totalAmount-=item.integral*item.number
+                    for(let i=0;i<selectedId.length;i++){
+                        if(item.id===selectedId[i]){
+                            this.selectedId.splice(i,1)
+                            break;
+                        }
+                    }
+                    if(type=='kind'){
+                        this.isKindAll = false
+                    }else {
+                        this.isVirtualAll = false;
+                    }
+
+                }else {
+                    this.list[type][index].isSelected=true
+                    this.selectedId.push(item.id)
+                    this.totalAmount+=item.integral*item.number
+                    if(type=='kind'){
+                        this.isInArray(this.list[type],false,'isSelected') ? this.isKindAll = false : this.isKindAll = true;
+                    }else {
+                        this.isInArray(this.list[type],false,'isSelected') ? this.isVirtualAll = false : this.isVirtualAll = true;
+                    }
+                }
+            },
+            isInArray(array,obj,type) {   //判断数组中是否包含某值
+                for(let i=0;i<array.length;i++){
+                    if(type){
+                        if(array[i][type]==obj){
+                            return true
+                        }
+                    }else {
+                        if(array[i]==obj){
+                            return true
+                        }
+                    }
+                }
+                return false
+            },
+            selectAllGoods(type) {  //选择全部虚拟-实物商品
+                let boolean
+                if(type=='kind'){
+                    console.log(this.isKindAll)
+                    this.isKindAll = !this.isKindAll
+                    boolean = this.isKindAll
+                }else {
+                    this.isVirtualAll = !this.isVirtualAll
+                    boolean = this.isVirtualAll
+                }
+
+                let Goods = this.list[type]
+                if(boolean){
+                    for(let i = 0;i<Goods.length;i++) {
+                        if(!Goods[i].isSelected){
+                            Goods[i].isSelected = true
+                            this.totalAmount += Goods[i].integral*Goods[i].number
+                        }
+                        if(!this.isInArray(this.selectedId,Goods[i].id)){   //将Id push 进已选择ID列表
+                            this.selectedId.push(Goods[i].id)
+                        }
+                    }
+                }else {
+                    for(let i = 0;i<Goods.length;i++) {
+                        Goods[i].isSelected = false
+                        this.totalAmount -= Goods[i].integral*Goods[i].number
+
+                        for(let j=0;j<this.selectedId.length;j++){
+                            if(Goods[i].id===this.selectedId[j]){
+                                this.selectedId.splice(j,1)
+                            }
+                        }
+
+                    }
+                }
+            },
+            reduce(index,item,type) {  //减少数量
+                if(item.number<=1){
+                    return
+                }
+                this.list[type][index].number--
+
+                if(item.isSelected){
+                    this.totalAmount-=item.integral
+                }
+            },
+            add(index,item,type) {  //添加数量
+                this.list[type][index].number++
+
+                if(item.isSelected){
+                    this.totalAmount+=item.integral
+                }
+            },
+            submitOrder() {  //提交订单
+                alert('提交成功'+this.selectedId.length)
+            },
+            selectAll() { //全部选中
+                this.isAll = !this.isAll
+                this.selectAllGoods('virtual')
+                this.selectAllGoods('kind')
+            }
+        },
+        created() {
+            this.getBagList()
+        }
+    }
+</script>
+
+<style scoped>
+    .radio {
+        background-image: url("../assets/icon-radio.png");
+        background-size: 20px auto;
+        background-repeat: no-repeat;
+        background-position: 10px center;
+    }
+
+    .radioActive {
+        background-image: url("../assets/icon-radio-active.png");
+    }
+
+    .bag{
+        padding-bottom: 130px;
+    }
+    .empty{
+        text-align: center;
+    }
+    .empty img{
+        margin-top: 160px;
+        width: 120px;
+        height: auto;
+        display: inline-block;
+    }
+    .bag-position {
+        height: 44px;
+        padding: 0 10px 0 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 15px;
+        color: #6d717a;
+        background-color: #f2f6fe;
+        background-image: url("../assets/icon-position.js.png");
+        background-repeat: no-repeat;
+        background-size: auto 16px;
+        background-position: 12px center;
+    }
+
+    .bag-position p:last-child {
+        color: #123676;
+    }
+
+    /*list*/
+    .bag-list {
+        background-color: #fff;
+    }
+
+    .bag-list .title {
+        padding-left: 42px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        height: 44px;
+    }
+
+    .bag-list .title img {
+        width: 32px;
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .bag-list-item {
+        padding: 10px 10px 10px 42px;
+        border-top: 1px solid #dadada;
+        display: flex;
+        position: relative;
+    }
+
+    .bag-list-item .bag-item-img {
+        width: 79px;
+        height: 79px;
+        border: 1px solid #bec2c9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+    }
+
+    .bag-list-item .bag-item-img img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    .bag-list-item .text {
+        height: 79px;
+        padding-left: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 13px;
+        overflow: hidden;
+    }
+
+    .bag-list-item .text .one {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .bag-list-item .text .two {
+        font-size: 12px;
+        color: #949494;
+    }
+
+    .bag-list-item .text .three {
+        color: #ea4c3c;
+    }
+
+    .bag-list-item .text .three span:first-child {
+        font-size: 16px;
+    }
+
+    .bag-list-item .text .three span:last-child {
+        font-size: 11px;
+        color: #96989a;
+        margin-left: 5px;
+    }
+
+    .bag-list-item .selectNum {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .bag-list-item .selectNum button {
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .bag-list-item .selectNum .subtract {
+        background-image: url("../assets/commodity/icon-subtract.png");
+    }
+
+    .bag-list-item .selectNum .subtract[disabled] {
+        background-image: url("../assets/commodity/icon-outSubtract.png");
+    }
+
+    .bag-list-item .selectNum .add {
+        background-image: url("../assets/commodity/icon-add.png");
+    }
+
+    .bag-list-item .selectNum .add[disabled] {
+        background-image: url("../assets/commodity/icon-outAdd.png");
+    }
+
+    .bag-list-item .selectNum .num {
+        padding: 0 12px;
+        font-size: 14px
+    }
+
+    /*实物列表*/
+    .shiwu {
+        margin-top: 5px;
+    }
+
+    /*footer*/
+    .footer {
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #dadada;
+        font-size: 14px;
+        background: #fff;
+        position: fixed;
+        bottom: 50px;
+    }
+
+    .footer .text {
+        width: 71%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5px 0 35px;
+    }
+
+    .footer .text p:last-child {
+        font-size: 15px;
+    }
+
+    .footer .text p:last-child span {
+        color: #ea4c3c
+    }
+
+    .footer .text .num {
+        font-size: 16px;
+    }
+
+    .footer .btn {
+        width: 29%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #123676;
+        color: #fff;
+    }
+    /*编辑*/
+    .footer .del {
+        width: 100%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px 0 35px;
+    }
+    .footer .del button{
+        width: 78px;
+        height: 34px;
+        border: 1px solid #123676;
+        color: #123676;
+        border-radius: 4px;
+        background: #fff;
+    }
+</style>

@@ -1,0 +1,621 @@
+<template>
+    <div class="index">
+        <div class="title">
+            <span>广州供电局</span>
+            <input type="text"/>
+            <div class="news newNews">
+                <img src="../assets/index/header-news.png"/>
+            </div>
+        </div>
+        <swiper :options="swiperOption" id="swiper1">
+            <swiper-slide><img src="../assets/index/header-banner.png"></swiper-slide>
+            <swiper-slide><img src="../assets/index/header-banner.png"></swiper-slide>
+            <swiper-slide><img src="../assets/index/header-banner.png"></swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+        <div class="hostpot">
+            <div class="content">{{data.hostpot}}<span>更多></span></div>
+        </div>
+        <div class="member">
+            <div class="member-operation" v-if="login=='Unbound' || login=='loggedIn'">
+                <div class="member-info">
+                    <div><img v-bind:src="userInfo.userImg">{{userInfo.userName}}</div>
+                    <div><img src="../assets/index/member-Diamonds.png">{{userInfo.level}}</div>
+                </div>
+                <a v-if="login=='Unbound'" @click="bindAccount" href="javascript:void (0)"></a>
+                <p v-if="login=='loggedIn'">{{userInfo.toatlElectricity}}</p>
+            </div>
+            <!--未登录-->
+            <div class="not-logged" v-if="login=='notLogged'">
+                <div class="login-btn">
+                    <a href="javascript:void (0)" @click="loggedIn"></a>
+                    <p>登录后查看信息</p>
+                </div>
+            </div>
+        </div>
+        <div class="blockTitle basic"></div>
+        <div class="basicService">
+
+            <router-link to="/" class="service-item">
+                <img src="../assets/index/service-dianfei.png" style="width: 65px"/>
+                <p>电费缴纳</p>
+            </router-link>
+            <router-link to="/" class="service-item">
+                <img src="../assets/index/service-zhangdan.png" style="width: 50px"/>
+                <p>账单查询</p>
+            </router-link>
+            <router-link to="/" class="service-item">
+                <img src="../assets/index/service-baozhang.png" style="width: 49.5px"/>
+                <p>一键保障</p>
+            </router-link>
+            <router-link to="/" class="service-item">
+                <img src="../assets/index/service-gengduo.png" style="width: 29px"/>
+                <p>更多服务</p>
+            </router-link>
+        </div>
+        <div class="blockTitle mall"></div>
+        <div class="integral-mall">
+            <div class="mall-banner">
+                <img src="../assets/index/mall-banner.png"/>
+                <router-link to="/integralMall"></router-link>
+            </div>
+            <div class="mall-box">
+                <router-link to="/integralMall" class="mall-item jifen"></router-link>
+                <router-link to="/integralMall" class="mall-item jiadian"></router-link>
+                <router-link to="/integralMall" class="mall-item xinnian"></router-link>
+            </div>
+        </div>
+        <div class="blockTitle financing"></div>
+        <div class="financing-service">
+            <div class="financing-banner">
+                <img src="../assets/index/financing-banner.png"/>
+                <a href="javascript:void (0)"></a>
+            </div>
+            <div class="financing-box">
+                <div class="financing-item tuijian"></div>
+                <div class="financing-item zixun"></div>
+                <div class="financing-item touzi"></div>
+            </div>
+        </div>
+        <div class="blockTitle wisdomLife"></div>
+        <div class="wisdomLife-box">
+            <div class="wisdomLife-item chongdian"></div>
+            <div class="wisdomLife-item zulin"></div>
+        </div>
+        <div class="blockTitle enterprise"></div>
+        <div class="enterprise-box">
+            <div class="enterprise-item ddgl"></div>
+            <div class="enterprise-item khzl"></div>
+            <div class="enterprise-item zfxt"></div>
+            <div class="enterprise-item cpml"></div>
+            <div class="enterprise-item clpz"></div>
+            <div class="enterprise-item zskf"></div>
+        </div>
+        <login :option="loginOption" v-on:loginSuccess="showMember"></login>
+        <navBar :nav=0></navBar>
+        <toast :toast="toastOption" v-if="!loginOption.loginPhone"></toast>
+    </div>
+</template>
+
+<script>
+    import 'swiper/dist/css/swiper.css'
+    import {swiper, swiperSlide} from 'vue-awesome-swiper'
+    import login from '../components/login'
+    import navBar from '../components/navigation-bar'
+    import toast from '../components/toast'
+
+    export default {
+        name: "index",
+        components: {
+            swiper,
+            swiperSlide,
+            login,
+            navBar,
+            toast
+        },
+
+        data() {
+            /*
+            * param {obj} swiperOption Swiper轮播图组件参数
+            * param {str} login 用户登录状态 1、未登录；2、未绑定；3、已登录
+            * param {obj} loginOption 登录注册组件
+            * param {obj} toastOption 消息提示组件
+            * */
+            return {
+                swiperOption: {
+                    autoplay: true,//可选选项，自动滑动
+                    speed: 500,
+                    delay: 5000,
+                    loop: true,
+
+                    // 如果需要分页器
+                    pagination: {
+                        el: '.swiper-pagination',
+
+                    }
+                },
+                loginOption: {
+                    isShow: false,
+                    isLogin: true,
+                    loginPhone: true
+                },
+                toastOption: {
+                    text: '验证码错误'
+                },
+                login: "notLogged",
+                data:{},
+                userInfo: {},
+            }
+        },
+        methods: {
+            indexList() {  //获取首页信息
+                let _this = this
+                $.ajax({
+                    url: '/api/index',
+                    success (res) {
+                        _this.data = res.data
+                    }
+                })
+            },
+            loggedIn() {  //登录
+                this.loginOption.isShow=true;
+            },
+            showMember(res) {   //登录结果信息
+                if(res.status){
+                    this.userInfo = res.data;
+                    this.login = 'Unbound';
+                    this.loginOption.isShow = false;
+                }
+            },
+            bindAccount() {  //绑定账号
+                this.login = 'loggedIn'
+            }
+        },
+        created() {
+            this.indexList()
+        }
+    }
+</script>
+
+<style scoped>
+    .index {
+        padding-top: 45px;
+    }
+    /*title*/
+    .title {
+        height: 45px;
+        width: 100%;
+        padding: 7.5px;
+        background: url("../assets/index/header-bg.png") no-repeat center;
+        background-size: 100% 100%;
+        font-size: 13px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        z-index: 9;
+    }
+
+    .title input {
+        width: 262px;
+        background-color: #3663b1;
+        border: none;
+        height: 100%;
+        outline: none;
+        padding: 0 15px;
+        color: #fff;
+        border-radius: 20px;
+        /*margin: 0 5px;*/
+    }
+
+    .title .news {
+        width: 15.5px;
+        height: 15.5px;
+        margin-right: 2.5px;
+        position: relative;
+    }
+
+    .title .newNews::after {
+        content: '';
+        width: 5.5px;
+        height: 5.5px;
+        border-radius: 50%;
+        background-color: #ff0000;
+        position: absolute;
+        top: -2.5px;
+        right: -6px;
+        display: block;
+    }
+
+    .title .news img {
+        width: 100%;
+        height: auto;
+    }
+
+    /*热点*/
+    .hostpot {
+        height: 41px;
+        width: 100%;
+        padding: 5.5px 7.5px;
+    }
+
+    .hostpot .content {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 15px;
+        background-image: url("../assets/index/hostpot.png");
+        background-position: 10px center;
+        background-repeat: no-repeat;
+        background-size: 26.5px 18px;
+        font-size: 14px;
+        padding: 0 45px;
+        line-height: 30px;
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .hostpot .content span {
+        position: absolute;
+        right: 10px;
+        font-size: 12px;
+        color: #757575;
+        top: 0;
+    }
+
+    /*member*/
+    .member {
+        height: 122px;
+        width: 100%;
+        background-color: #fff;
+        padding: 6px 10px 7px 10px;
+    }
+
+    .member .member-operation {
+        height: 100%;
+        background: url("../assets/index/member-Electricity.png") no-repeat bottom center;
+        background-size: 100% 117px;
+        position: relative;
+    }
+
+    .member .member-info {
+        font-size: 14px;
+        color: #525252;
+        display: flex;
+        display: -webkit-flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .member .member-info > div:first-child img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #cccccc;
+        margin-right: 5px;
+    }
+
+    .member .member-info > div:last-child img {
+        width: 18.5px;
+        height: 15px;
+        margin-right: 5px;
+    }
+
+    .member .member-info > div {
+        display: flex;
+        display: -webkit-flex;
+        align-items: center;
+    }
+
+    .member .member-operation > a {
+        width: 117px;
+        height: 30px;
+        display: inline-block;
+        background: url("../assets/index/member-btnbg.png") no-repeat;
+        background-size: 100% 100%;
+        font-size: 14px;
+        color: #ffffff;
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .member .member-operation > p {
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #123676;
+        font-size: 27px;
+        font-weight: bold;
+    }
+
+    /*用户未登录*/
+    .member .not-logged {
+        height: 100%;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .member .not-logged .login-btn a {
+        background-image: url("../assets/index/member-notLogged-btn.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 125px;
+        height: 35px;
+        display: inline-block;
+    }
+
+    .member .not-logged .login-btn p {
+        font-size: 14px;
+        color: #a2a2a2;
+    }
+
+    /*blockTitle*/
+    .blockTitle {
+        width: 100%;
+        height: 39px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 135px auto;
+    }
+
+    /*基础服务*/
+    .basic {
+        background-image: url("../assets/index/title-juchu.png");
+    }
+
+    .basicService {
+        height: 106px;
+        background: #fff;
+        padding: 22px 0;
+    }
+
+    .basicService .service-item {
+        width: 25%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        position: relative;
+        display: block;
+        color: #000;
+    }
+
+    .basicService .service-item img {
+        height: auto;
+        display: inline-block;
+    }
+
+    .basicService .service-item p {
+        font-size: 14px;
+        font-weight: 500;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        line-height: 1;
+    }
+
+    /*积分商城*/
+    .mall {
+        background-image: url("../assets/index/title-mall.png");
+    }
+
+    .integral-mall {
+        background: #fff;
+    }
+
+    .integral-mall .mall-banner {
+        width: 100%;
+        height: 120px;
+        position: relative;
+    }
+
+    .integral-mall .mall-banner img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .integral-mall .mall-banner a {
+        width: 77.5px;
+        height: 19.5px;
+        display: inline-block;
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background-image: url("../assets/index/mall-banner-btn.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .integral-mall .mall-box {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-between;
+    }
+
+    .integral-mall .mall-box .mall-item {
+        width: 115px;
+        height: 100px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        display: block;
+    }
+
+    .integral-mall .mall-box .jifen {
+        background-image: url("../assets/index/mall-item-jifen.png");
+    }
+
+    .integral-mall .mall-box .jiadian {
+        background-image: url("../assets/index/mall-item-jiadian.png");
+    }
+
+    .integral-mall .mall-box .xinnian {
+        background-image: url("../assets/index/mall-item-xinnian.png");
+    }
+
+    /*理财服务*/
+    .financing {
+        background-image: url("../assets/index/title-licai.png");
+    }
+
+    .financing-service {
+        background: #fff;
+    }
+
+    .financing-service .financing-banner {
+        width: 100%;
+        height: 120px;
+        position: relative;
+    }
+
+    .financing-service .financing-banner img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .financing-service .financing-banner a {
+        background-image: url("../assets/index/financing-banner-btn.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 78.5px;
+        height: 25.1px;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 7px;
+        margin: 0 auto;
+    }
+
+    .financing-service .financing-box {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-between;
+    }
+
+    .financing-service .financing-box .financing-item {
+        width: 115px;
+        height: 100px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .financing-service .financing-box .tuijian {
+        background-image: url("../assets/index/financing-item-tuijian.png");
+    }
+
+    .financing-service .financing-box .zixun {
+        background-image: url("../assets/index/financing-item-zixun.png");
+    }
+
+    .financing-service .financing-box .touzi {
+        background-image: url("../assets/index/financing-item-touzi.png");
+    }
+
+    /*智慧生活*/
+    .wisdomLife {
+        background-image: url("../assets/index/title-zhsh.png");
+    }
+
+    .wisdomLife-box {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-between;
+        background: #fff;
+    }
+
+    .wisdomLife-box .wisdomLife-item {
+        width: 172.5px;
+        height: 120px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .wisdomLife-box .chongdian {
+        background-image: url("../assets/index/wisdomLife-chongdian.png");
+    }
+
+    .wisdomLife-box .zulin {
+        background-image: url("../assets/index/wisdomLife-zulin.png");
+    }
+
+    /*企业专区*/
+    .enterprise {
+        background-image: url("../assets/index/title-enterprise.png");
+    }
+
+    .enterprise-box {
+        width: 100%;
+        padding: 0 10px 65px 10px;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        background: #fff;
+    }
+
+    .enterprise-box .enterprise-item {
+        height: 90px;
+        width: 172px;
+        margin-top: 10px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        flex: none;
+    }
+
+    .enterprise-box .ddgl {
+        background-image: url("../assets/index/enterprise-item-ddgl.png");
+    }
+
+    .enterprise-box .khzl {
+        background-image: url("../assets/index/enterprise-item-khzl.png");
+    }
+
+    .enterprise-box .zfxt {
+        background-image: url("../assets/index/enterprise-item-zfxt.png");
+    }
+
+    .enterprise-box .cpml {
+        background-image: url("../assets/index/enterprise-item-cpml.png");
+    }
+
+    .enterprise-box .clpz {
+        background-image: url("../assets/index/enterprise-item-clpz.png");
+    }
+
+    .enterprise-box .zskf {
+        background-image: url("../assets/index/enterprise-item-zskf.png");
+    }
+
+    /*Swiper插件*/
+    #swiper1 {
+        width: 100%;
+        height: 120px;
+    }
+
+    #swiper1 img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #swiper1 .swiper-slide {
+        background-color: #cccccc;
+    }
+</style>

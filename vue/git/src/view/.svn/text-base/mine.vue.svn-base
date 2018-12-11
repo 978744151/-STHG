@@ -1,0 +1,321 @@
+<template>
+	<div class="mine">
+		<div class="head">
+			<div class="head_left">
+				<div class="headimg"><img :src="userInfo.userImg"/></div>
+				<div class="name">
+					<div>{{userInfo.userName}}<img src="https://pic.repaiapp.com/static/png/20180124/09/1516758981258185157.png"></div>
+					<div class="leval">
+						<p>{{userInfo.level}}</p>
+						<span>能量值{{userInfo.energyValue}} ></span>
+					</div>
+				</div>
+			</div>
+			<div class="head_right">
+				<div>
+					<img src="https://pic.repaiapp.com/static/png/20180124/10/1516760291925885448.png">
+					账号管理
+				</div>
+				<div style="opacity: 0">账号管理</div>
+			</div>
+			<div class="user"></div>
+		</div>
+		<!-- state -->
+		<div class="state">
+			<div class="one" @click="myOrderList('1')">
+				<img src="https://pic.repaiapp.com/static/png/20180124/10/1516762185363510050.png">
+				<span>实物</span>
+			</div>
+			<div class="two" @click="myOrderList('2')">
+				<img src="https://pic.repaiapp.com/static/png/20180124/10/1516762641860805653.png">
+				<span>虚拟</span>
+			</div>
+			<div class="three" @click="myOrderList('3')">
+				<img src="https://pic.repaiapp.com/static/png/20180124/11/1516762803159209956.png">
+				<span>已发货</span>
+			</div>
+			<div class="four" @click="bill">
+				<div class="line"></div>
+				<img src="https://pic.repaiapp.com/static/png/20180124/11/1516763243280455052.png">
+				<span>积分订单</span>
+			</div>
+		</div>
+		<!-- Logistics -->
+		<div class="logistics">
+			<div class="logLeft"></div>
+			<div class="logRight">
+				<div style="margin-bottom: 15px"><span>配送中</span>  2018-09-09 17:09:23</div>
+				<div>广东省广州市广东增城市新塘镇步行街A08-10</div>
+			</div>
+		</div>
+		<!-- server -->
+		<div class="server">我的服务</div>
+		<!-- serverlist -->
+		<div class="serverall">
+			<router-link to="/">
+                <img src="https://pic.repaiapp.com/static/png/20180124/13/1516772936464649749.png" class="listone">
+                <p>电费缴纳</p>
+            </router-link>
+            <router-link to="/bill">
+                <img src="https://pic.repaiapp.com/static/png/20180124/13/1516773038769925597.png" class="listtwo">
+                <p>账单查询</p>
+            </router-link>
+			<router-link to="/">
+                <img src="https://pic.repaiapp.com/static/png/20180124/13/1516773159610694998.png" class="listthree">
+                <p>一键保障</p>
+            </router-link>
+			<router-link to="/">
+                <img src="https://pic.repaiapp.com/static/png/20180124/13/1516773205663798101.png" class="listfour">
+                <p>更多服务</p>
+            </router-link>
+		</div>
+        <navBar :nav=2></navBar>
+	</div>
+</template>
+<script>
+    import navBar from '../components/mall-bar'
+    export default {
+        name: "mine",
+        components: {
+            navBar
+        },
+        data (){
+            return {
+                userInfo:{}
+            }
+        },
+        methods: {
+            myOrderList(type) {
+            	//跳转页面
+                this.$router.push({name:'myOrder',query: {id:type}})
+            },
+            bill() {
+                this.$router.push({name:'bill'})
+            },
+            getUserInfo() {  //获取用户信息
+                let _that = this;
+                $.ajax({
+                    url:'/api/user',
+                    type:'GET',
+                    success(res){
+                        console.log(res.data)
+                        _that.userInfo = res.data
+                    }
+                })
+            }
+        },
+        created() {
+            this.getUserInfo()
+        }
+    }
+</script>
+<style scoped>
+
+    .mine{
+        min-height: 100vh;
+        background-color: #f7f5f7;
+    }
+	.head{
+		width: 100%;
+		height: 135px;
+		background-image: url('https://pic.repaiapp.com/static/png/20180124/09/1516758463888104955.png');
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-left: 15px;
+		box-sizing: border-box;
+		position: relative;
+	}
+	.head_left{
+		position: relative;
+		display: flex;
+		align-items: center;
+		color: #fff;
+		font-size: 16px;
+	}
+	.headimg{
+		position: relative;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background-color: #fff;
+		margin-right: 16px;
+	}
+    .headimg>img{
+        width: 100%;height: 100%;
+    }
+	.name img{
+		width: 13px;
+		height: 12px;
+	}
+	.leval{
+		font-size: 14px;
+		margin-top: 13px;
+	}
+	.leval p{
+		padding: 1.5px 6px;
+		border:1px #fff solid;
+		border-radius: 25px;
+		display: inline-block;
+		margin-right: 7px
+	}
+	.head_right{
+		position: relative;
+		font-size: 14px;
+		color: #fff;
+		margin-right: 10px
+	}
+	.head_right div img{
+		width: 16px;
+		height: 16px;
+		margin-right: 5px;
+	}
+	.head_right div{
+		margin-bottom: 8px;
+		display: flex;
+		align-items: center;
+	}
+	.user{
+		position: absolute;
+		width: 100px;
+		height: 52px;
+		right: 0;
+		bottom: 0;
+		background-image: url('https://pic.repaiapp.com/static/png/20180124/10/1516760626016601100.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.state{
+		position: relative;
+		background-color: #fff;
+		height: 75px;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid #dadada;
+		font-size: 0;
+	}
+	.state div{
+		position: relative;
+		width: 25%;
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		justify-content: center;
+		/*background-color:yellow;*/
+	}
+	.state div span{
+		font-size: 14px;
+		color: #000000;
+	}
+	.one img{
+		width: 25px;
+		height: 22px;
+		margin-bottom: 9px;
+	}
+	.two img{
+		width: 26px;
+		height: 21px;
+		margin-bottom: 8px;
+	}
+	.three img{
+		width: 28px;
+		height: 25px;
+		margin-bottom: 6px;
+	}
+	.four img{
+		width: 23px;
+		height: 31.5px;
+		margin-bottom: 3px;
+	}
+	.state div .line{
+		position: absolute;
+		width: 1px;
+		height: 60px;
+		background-color: #dadada;
+		left: 0;
+	}
+	.logistics{
+		position: relative;
+		height: 70px;
+		width: 100%;
+		box-sizing: border-box;
+		background-color: #fff;
+		display: flex;
+		align-items: center;
+		padding-left: 10px;
+	}
+	.logLeft{
+		position: relative;
+		width: 59px;
+		height: 59px;
+		border:1px solid #dadada;
+		margin-right: 13px;
+	}
+	.logRight{
+		position: relative;
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		font-size: 13px;
+		color: #7f7e80;
+	}
+	.logRight div span{
+		color: #123676;
+	}
+	.server{
+		position: relative;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid #dadada;
+		background-color: #fff;
+		margin-top: 9px;
+		font-size: 15px;
+		color: #010101;
+		padding-left: 15px;
+		box-sizing: border-box;
+	}
+	.serverall{
+		position: relative;
+		height: 90px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		background-color: #fff;
+		justify-content: center;
+
+	}
+	.serverall a{
+		width: 25%;
+		font-size: 14px;
+		color: #000000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-flow: column;
+
+	}
+	.listone{
+		width: 18px;
+		height: 25px;
+		margin-bottom: 10px;
+	}
+	.listtwo{
+		width: 20.5px;
+		height: 24px;
+		margin-bottom: 11px;
+	}
+	.listthree{
+		width: 22px;
+		height: 25.5px;
+		margin-bottom: 10px;
+	}
+	.listfour{
+		width: 20px;
+		height: 20px;
+		margin-bottom: 15px;
+	}
+</style>

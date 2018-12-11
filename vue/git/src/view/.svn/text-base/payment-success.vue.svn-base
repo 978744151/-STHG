@@ -1,0 +1,202 @@
+<template>
+    <div class="pay">
+        <div class="pay-title">
+            <div class="text">
+                <p>兑换结果：<span>兑换成功</span></p>
+                <p>兑换积分：<span>4000积分</span></p>
+            </div>
+
+            <router-link to="/orderDetail/123" class="lookOrder">
+                查看订单
+            </router-link>
+            <router-link to="/integralMall" class="continue">
+                继续兑换
+            </router-link>
+        </div>
+        <div class="pay-continue">
+            <span>继续兑换</span>
+        </div>
+        <!--商品列表-->
+        <div class="mall-box">
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img1.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img2.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img3.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img1.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img2.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img3.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "payment-success"
+    }
+</script>
+
+<style scoped>
+    .pay{
+        padding-bottom: 20px;
+    }
+    .pay-title{
+        background: #fff;
+        padding: 34px 55px 24px 55px;
+    }
+    .pay-title .text{
+        padding-left: 100px;
+        font-size: 16px;
+        height: 67px;
+        background-image: url("../assets/pay-success.png");
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        background-position: -20px center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .pay-title a{
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
+        background: white;
+        border-radius: 3px;
+        text-align: center;
+        line-height: 44px;
+    }
+    .pay-title .lookOrder{
+        border: 1px solid #b5b5b5;
+        margin-top: 22px;
+        display: inline-block;
+        color: #000;
+    }
+    .pay-title .continue{
+        background: #123676;
+        color: #fff;
+        margin-top: 15px;
+        display: inline-block;
+    }
+    .pay-continue{
+        text-align: center;
+        position: relative;
+    }
+    .pay-continue::after{
+        content: '';
+        display: block;
+        height: 1px;
+        width: 100%;
+        background: #dadada;
+        position: absolute;
+        left: 0;right: 0;top: 50%;
+        z-index: 5;
+    }
+    .pay-continue span{
+        font-size: 16px;
+        padding: 0 15px 0 30px;
+        background-image: url("../assets/pay-top.png");
+        background-repeat: no-repeat;
+        background-size: 15px auto;
+        background-position: 10px center;
+        z-index: 9;
+        position: relative;
+        background-color: #f4f4f4;
+        line-height: 39px;
+    }
+    /**/
+    .mall-box{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .mall-box .mall-box-item{
+        background: #fff;
+        width: 185px;
+        height: 240px;
+        margin-top: 5px;
+        position: relative;
+        /*padding:  5px 3px 5px 7px;*/
+    }
+    .mall-box .mall-box-item .mall-box-img{
+        width: 175px;
+        height: 160px;
+        margin: 5px auto 0;
+    }
+    .mall-box .mall-box-item .mall-box-img img{
+        width: 100%;height: 100%;
+    }
+    .mall-box .mall-box-item .mall-box-text{
+        font-size: 14px;
+        padding: 0 5px;
+        height: 75px;
+    }
+    .mall-box .mall-box-item .money{
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+        line-height: 26px;
+        font-size: 18px;
+        color: #ea4c3c;
+        font-weight: bold;
+    }
+    .mall-box .mall-box-item .money span{
+        font-size: 14px;
+        font-weight: 500;
+    }
+</style>

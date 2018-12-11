@@ -1,0 +1,185 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import index from '@/view/index'
+import integralMall from '@/view/Integral-mall'
+import detail from '@/view/commodity-details'
+import confirmOrder from '@/view/confirm-order'
+import selectAddress from '@/view/select-address'
+import editAddress from '@/view/edit-address'
+
+import mine from '@/view/mine'
+import MemberCenter from '@/view/MemberCenter'
+import makeIntegral from '@/view/makeIntegral'
+import checkIn from '@/view/checkIn'
+import paySuccess from '@/view/payment-success'
+import bag from '@/view/exchange-bag'
+import myOrder from '@/view/my-order'
+import orderDetail from '@/view/order-details'
+import notice from '@/view/Notice'
+import express from '@/view/express'
+import bill from '@/view/bill'
+import IntegralActivity from '@/view/Integral-activity'
+import myIntegral from '@/view/my-Integral'
+
+
+Vue.use(Router)
+
+const router = new Router({
+    routes: [
+        {
+            path:'/',
+            name:'index',
+            component:index,
+            meta:{
+                title:'首页'
+            }
+        },
+        {
+            path:'/integralMall',
+            name:'integralMall',
+            component:integralMall,
+            meta:{
+                title:'积分商城'
+            }
+        },
+        {
+            path:'/detail/:id',
+            name:'detail',
+            component:detail,
+            meta:{
+                title:'商品详情'
+            }
+        },
+        {
+            path:'/confirmOrder',
+            name:'confirmOrder',
+            component:confirmOrder,
+            meta:{
+                title:'确认订单'
+            }
+        },
+        {
+            path:'/selectAddress',
+            name:'selectAddress',
+            component:selectAddress,
+            meta:{
+                title:'地址'
+            }
+        },
+        {
+            path:'/editAddress/:id',
+            name:'editAddress',
+            component:editAddress,
+            meta: {
+                title: '编辑地址'
+            }
+        },
+         {
+            path:'/paySuccess',
+            name:'paySuccess',
+            component:paySuccess,
+            meta: {
+                title: '兑换成功'
+            }
+        },
+        {
+            path:'/mine',
+            name:'mine',
+            component:mine,
+            meta: {
+                title: '我的'
+            }
+        },
+        {
+            path:'/bag',
+            name:'bag',
+            component:bag,
+            meta: {
+                title: '兑换袋'
+            }
+        },
+        {
+            path:'/myOrder',
+            name:'myOrder',
+            component:myOrder,
+            meta: {
+                title: '我的订单'
+            }
+        },
+        {
+            path:'/orderDetail/:id',
+            name:'orderDetail',
+            component:orderDetail,
+            meta: {
+                title: '兑换详情'
+            }
+        },
+        {
+            path:'/notice',
+            name:'notice',
+            component:notice,
+            meta: {
+                title: '公告'
+            }
+        },
+        {
+            path:'/express/:id',
+            name:'express',
+            component:express,
+            meta: {
+                title: '查看物流'
+            }
+        },
+        {
+            path:'/bill',
+            name:'bill',
+            component:bill,
+            meta: {
+                title: '积分账单'
+            }
+        },
+        {
+            path: '/IntegralActivity',
+            name:'IntegralActivity',
+            component:IntegralActivity,
+            meta: {
+                title: '积分活动'
+            }
+        },
+        {
+            path: '/myIntegral',
+            name: 'myIntegral',
+            component: myIntegral,
+            meta: {
+                title: '我的积分'
+            }
+        },
+        {
+            path:'/MemberCenter',
+            name:"MemberCenter",
+            component:MemberCenter
+        },
+        {
+            path:'/makeIntegral',
+            name:"makeIntegral",
+            component:makeIntegral
+        },
+        {
+            path:'/checkIn',
+            name:"checkIn",
+            component:checkIn
+        }
+    ]
+})
+
+router.beforeEach((to, from, next) => {
+    console.log(to)
+    if (to.meta.title) {
+        document.title = to.meta.title
+    }
+    next()
+})
+
+export default router
+
+

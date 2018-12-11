@@ -1,0 +1,181 @@
+<template>
+    <div class="bill">
+        <div class="bill-nav">
+            <span class="active">全部</span>
+            <span>收入</span>
+            <span>支出</span>
+        </div>
+        <div class="bill-content">
+            <p class="select">筛选</p>
+            <div class="bill-box">
+                <div class="time">
+                    本月
+                </div>
+                <div class="box-item">
+                    <div class="one shandian">
+                        <p>缴纳电费赠送</p>
+                        <p>2017-10-10 22:22:22</p>
+                    </div>
+                    <div class="two">
+                        <p>+1000</p>
+                        <p>余额：2000</p>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="one mendian">
+                        <p>缴纳电费赠送</p>
+                        <p>2017-10-10 22:22:22</p>
+                    </div>
+                    <div class="two">
+                        <p>+1000</p>
+                        <p>余额：2000</p>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="one jifen">
+                        <p>缴纳电费赠送</p>
+                        <p>2017-10-10 22:22:22</p>
+                    </div>
+                    <div class="two">
+                        <p>+1000</p>
+                        <p>余额：2000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bill-box">
+                <div class="time">
+                    9月
+                </div>
+                <div class="box-item">
+                    <div class="one shandian">
+                        <p>缴纳电费赠送</p>
+                        <p>2017-10-10 22:22:22</p>
+                    </div>
+                    <div class="two">
+                        <p>+1000</p>
+                        <p>余额：2000</p>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="one mendian">
+                        <p>缴纳电费赠送</p>
+                        <p>2017-10-10 22:22:22</p>
+                    </div>
+                    <div class="two">
+                        <p>+1000</p>
+                        <p>余额：2000</p>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <div class="one jifen">
+                        <p>缴纳电费赠送</p>
+                        <p>2017-10-10 22:22:22</p>
+                    </div>
+                    <div class="two">
+                        <p>+1000</p>
+                        <p>余额：2000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "bill"
+    }
+</script>
+
+<style scoped>
+    .bill{
+        min-height: 100vh;
+        background: #f6f6f6;
+    }
+    .bill-nav{
+        height: 40px;
+        background: #fff;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+    }
+    .bill-nav span{
+        height: 100%;
+        line-height: 40px;
+        padding: 0 10px;
+    }
+    .active{
+        border-bottom: 3px solid #123676;
+        color: #4481e1;
+    }
+
+    .bill-content{
+        position: relative;
+    }
+    .bill-content .time{
+        line-height: 30px;
+        font-size: 13px;
+        padding: 0 15px;
+    }
+    .bill-box .box-item:last-child{
+        border: none;
+    }
+    .box-item{
+        padding: 10px 15px;
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #9d9d9d;
+        border-bottom: 1px solid #dadada;
+    }
+    .box-item .one{
+        height: 40px;
+        padding-left: 47px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        background-size: 37px auto;
+        background-repeat: no-repeat;
+        background-position: left center;
+    }
+    .shandian{
+        background-image: url("../assets/bill/icon-dian.png");
+    }
+    .mendian{
+        background-image: url("../assets/bill/icon-shangdian.png");
+    }
+    .jifen{
+        background-image: url("../assets/bill/icon-jifen.png");
+    }
+    .box-item .one p:first-child{
+        font-size: 16px;
+        color: #000;
+    }
+    .box-item .two{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .box-item .two p:first-child{
+        font-size: 18px;
+        color: #000;
+        font-weight: 500;
+    }
+
+    .select{
+        position: absolute;
+        right: 15px;
+        top: 0;
+        padding-right: 15px;
+        line-height: 30px;
+        font-size: 13px;
+        background-image: url("../assets/bill/icon-sjx.png");
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 8px auto;
+    }
+</style>

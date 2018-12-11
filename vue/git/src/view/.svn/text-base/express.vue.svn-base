@@ -1,0 +1,157 @@
+<template>
+    <div class="express">
+        <div class="express-title">
+            <div class="one">
+                <img src="//pic.repaiapp.com/static/png/20180126/14/1516947465402157100.png" alt="">
+            </div>
+            <div class="two">
+                <p>{{isSign?'已签收':'待收货'}}</p>
+                <p>订单编号：110220330404</p>
+                <p>圆通物流：123456789</p>
+            </div>
+        </div>
+        <div class="bg"></div>
+        <div class="express-content">
+            <div class="item itemOne">
+                <img class="topOne" v-if="!isSign" src="../assets/icon-topOne.png" alt="">
+                <img class="topOne" v-if="isSign" src="../assets/icon-gou.png" alt="">
+                <div class="item-info">
+                    <p>快件已从广州中转部出发</p>
+                    <p>2017-10-10 23:20:20</p>
+                </div>
+            </div>
+            <div class="item">
+                <img class="top" src="../assets/icon-top.png" alt="">
+                <div class="item-info">
+                    <p>快件已从广州中转部出发</p>
+                    <p>2017-10-10 23:20:20</p>
+                </div>
+            </div>
+            <div class="item">
+                <img class="top" src="../assets/icon-top.png" alt="">
+                <div class="item-info">
+                    <p>快件已从广州中转部出发</p>
+                    <p>2017-10-10 23:20:20</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "express",
+        data() {
+            return {
+                isSign: true
+            }
+        },
+        methods: {
+
+        }
+    }
+</script>
+
+<style scoped>
+    .express{
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+    }
+    .express .bg{
+        height: 10px;
+        background: #f0f0f0;
+    }
+    .express-title{
+
+    }
+    .express-title{
+        padding: 10px;
+        display: flex;
+        height: 92px;
+        flex: none;
+    }
+    .express-title .one{
+        width: 72px;
+        height: 72px;
+        border: 1px solid #e5e5e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+    }
+    .express-title .one img{
+        width: auto;height: auto;
+        max-height: 100%;max-width: 100%;
+    }
+    .express-title .two{
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 4px 0 4px 10px;
+        height: 100%;
+    }
+    .express-title .two p:first-child{
+        color: #ff9000;
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+    .express-content{
+        padding: 10px;
+        background: #fff;
+        font-size: 14px;
+        height: 100%;
+        color: #7c7c7c;
+        position: relative;
+    }
+    .express-content::before{
+        content: '';
+        position: absolute;
+        display: block;
+        width: 1px;
+        top: 20px;
+        left: 30px;
+        bottom: 50px;
+        background: #dddddd;
+    }
+    .item{
+        padding-left: 45px;
+        line-height: 1;
+        position: relative;
+    }
+    .item .top{
+        position: absolute;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        left: 12px;
+        top: 9px;
+        background-image: url("../assets/icon-top.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    .item .topOne{
+        position: absolute;
+        display: inline-block;
+        border-radius: 50%;
+        left: 9px;
+        top: 9px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        width: 22px;
+        height: 22px;
+        background-image: url("../assets/icon-topOne.png");
+    }
+    .item>div{
+        border-bottom: 1px solid #dadada;
+        padding: 13px 0;
+    }
+    .item>div p:first-child{
+        margin-bottom: 10px;
+    }
+    .itemOne{
+        color: #449613;
+    }
+</style>

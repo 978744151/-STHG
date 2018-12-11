@@ -1,0 +1,352 @@
+<template>
+    <div class="mall">
+        <swiper :options="swiperOption" id="mall-banner">
+            <swiper-slide v-for="(item,index) in mallData.banner" :key="item.key"><img v-bind:src="item.imgUrl"></swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+        <div class="mall-operation">
+            <div class="operation-item">
+                <router-link to="/makeIntegral">
+                    <img src="../assets/mall/operation-jifen.png" alt="">
+                    <p>赚取积分</p>
+                </router-link>
+            </div>
+            <div class="operation-item">
+                <div>
+                    <img src="../assets/mall/operation-duihuan.png" alt="">
+                    <p>我可兑换</p>
+                </div>
+            </div>
+            <div class="operation-item">
+                <router-link to="/checkIn">
+                    <img src="../assets/mall/operation-qiandao.png" alt="">
+                    <p>每日签到</p>
+                </router-link>
+            </div>
+            <div class="operation-item">
+                <router-link to="/IntegralActivity">
+                    <img src="../assets/mall/operation-huodong.png" alt="">
+                    <p>积分活动</p>
+                </router-link>
+            </div>
+        </div>
+        <div class="mall-notice">
+            <div class="content"><marquee  behavior="alternate"  scrollamount="2" >{{mallData.notice.text}}</marquee><router-link to="/notice">更多</router-link></div>
+        </div>
+        <div class="blockTitle basic"></div>
+        <ul class="mall-type clear">
+            <li v-for="(item,index) in mallData.navClass" @click="switchClass(item)"><span :class="{active:item===navClassIndex}">{{item}}</span></li>
+        </ul>
+        <div class="mall-box">
+<<<<<<< .mine
+            <div class="mall-box-item" @click="routerDetail(item.id)" v-for="(item,index) in list" :data-id="item.id">
+=======
+            <div class="mall-box-item" v-for="(item,index) in goodsData[navClassIndex]" @click="routerDetail(item.id)">
+>>>>>>> .r50832
+                <div class="mall-box-img">
+<<<<<<< .mine
+                    <img :src="item.thumb" alt="">
+=======
+                    <img :src="item.imgUrl" alt="">
+>>>>>>> .r50832
+                </div>
+                <div class="mall-box-text">
+<<<<<<< .mine
+                    <p class="ztitle">{{item.title}}</p>
+                    <p class="money">{{item.marketprice}}<span>积分</span></p>
+=======
+                    <p>{{item.title}}</p>
+                    <p class="money">{{item.integral}}<span>积分</span></p>
+>>>>>>> .r50832
+                </div>
+            </div>
+        </div>
+        <mallBar :nav=0></mallBar>
+    </div>
+</template>
+<script src="http://libs.cdnjs.net/vue-resource/1.3.4/vue-resource.min.js"></script>
+<script>
+    import 'swiper/dist/css/swiper.css'
+    import { swiper, swiperSlide } from 'vue-awesome-swiper'
+    import mallBar from '../components/mall-bar'
+    // import VueResource from 'vue-resource';  
+    // Vue.use(VueResource) 
+    export default {
+        name: "integral-mall",
+        components: {
+            swiper,
+            swiperSlide,
+            mallBar
+        },
+        data (){
+            return {
+                list:[],
+                sw:true,
+                page:1,
+                swiperOption: {
+                    autoplay: true,//可选选项，自动滑动
+                    speed:500,
+                    delay:5000,
+                    loop: true,
+
+                    // 如果需要分页器
+                    pagination: {
+                        el: '.swiper-pagination',
+
+                    }
+                },
+                mallData:{
+                    notice:{}
+                },
+                goodsData:{},
+                navClassIndex: '',
+            }
+        },
+        methods:{
+<<<<<<< .mine
+            routerDetail:function (id) {
+                this.$router.push({name: 'detail', params: { 'id':id }})
+            },
+            //商品列表
+            shopList:function(){
+                var _this=this;
+                _this.$http.jsonp("http://dc.xiaodian.in/app/index.php?i=4&c=entry&m=ewei_shopv2&do=mobile&r=south.get_list",{  
+                    params:{page:_this.page}  
+                }).then(res=>{  
+                    if(res.body.list!=''){
+                        _this.list=_this.list.concat(res.body.list);
+                    }else{
+                        _this.sw=false;
+                    }
+                    
+                    // console.log(_this.list)
+                    console.log(res.body.list);
+                },response => {  
+                }); 
+            },
+             
+        },
+        //进来就执行
+        created() {
+            this.shopList();
+            var _this=this;
+            $(window).scroll(function (){  
+                
+                let scrollTop = $(this).scrollTop()
+                let scrollHeight = $(document).height()
+                let windowHeight = $(this).height()
+                if (scrollTop + windowHeight === scrollHeight)  {
+                    if(_this.sw==true){
+                        _this.page=_this.page+1;
+                        _this.shopList()
+                    }  
+                   
+                    // console.log(sw);  
+                    // 如果开关打开则加载数据 
+                    // console.log("11111")  
+                }  
+            });
+=======
+            routerDetail(id) {
+                this.$router.push({name: 'detail', params: { 'id': id}})
+            },
+            getMall() {
+                let _that = this
+                $.ajax({
+                    type:'GET',
+                    url:"/api/mall",
+                    success(res) {
+                        console.log(res)
+                        _that.mallData = res.data
+                        _that.navClassIndex = res.data.navClass[0]
+                        _that.getGoods()
+
+
+                    }
+                })
+            },
+            getGoods() {
+                let _that = this
+                $.ajax({
+                    type:'GET',
+                    url:"/api/goods",
+                    success(res) {
+                        console.log(res)
+                        _that.goodsData = res.data
+                    }
+                })
+            },
+            switchClass(item) {
+                this.navClassIndex = item
+            }
+>>>>>>> .r50832
+        },
+        created() {
+            this.getMall()
+        }
+    }
+</script>
+
+<style scoped>
+    .mall{
+        padding-bottom: 65px;
+    }
+    /*banner*/
+    #mall-banner{
+        width: 100%;
+        height: 99px;
+    }
+    #mall-banner img{
+        width: 100%;height: 100%;
+    }
+    /*4个按钮操作*/
+    .mall-operation{
+        width: 100%;height: 100px;
+        background: #fff;
+    }
+    .mall-operation .operation-item{
+        width: 25%;height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+        font-size: 14px;
+    }
+    .mall-operation .operation-item a{
+        color: #000;
+    }
+    .mall-operation .operation-item img{
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+    }
+    /*公告*/
+    .mall-notice{
+        padding: 10px 10px 0 10px;
+        width: 100%;
+    }
+    .mall-notice .content{
+        width: 100%;
+        background: #fff;
+        border-radius: 15px;
+        padding: 0 55px 0 50px;
+        font-size: 14px;
+        background-image: url("../assets/mall/mall-notice.png");
+        background-size: 33px 15px;
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        position: relative;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        line-height: 31px;
+    }
+    .mall-notice .content marquee{
+        float: left;
+        height: 31px;
+    }
+    .mall-notice .content a{
+        position: absolute;
+        right: 15px;
+        font-size: 14px;
+        color: #757575;
+        padding-left: 10px;
+        border-left: 1px solid #aaaaaa;
+        line-height: 1;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    /*blockTitle*/
+    .blockTitle{
+        width: 100%;height: 39px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 135px auto;
+
+        background-image: url("../assets/mall/title-remen.png");
+    }
+    /*商品分类*/
+    .mall-type{
+        height: 51px;
+        background: #fff;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 15px;
+        text-align: center;
+    }
+    .mall-type li {
+        display: inline-block;
+        width: 84px;
+    }
+    .mall-type li span{
+        line-height: 51px;
+        display: inline-block;
+        position: relative;
+        width: 70px;
+    }
+    .mall-type .active{
+        color: #123676;
+    }
+    .mall-type .active::after{
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #123676;
+        height: 3px;
+    }
+    /**/
+    .mall-box{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .mall-box .mall-box-item{
+        background: #fff;
+        width: 185px;
+        height: 240px;
+        margin-top: 5px;
+        position: relative;
+        /*padding:  5px 3px 5px 7px;*/
+    }
+    .mall-box .mall-box-item .mall-box-img{
+        width: 175px;
+        height: 160px;
+        margin: 5px auto 0;
+    }
+    .mall-box .mall-box-item .mall-box-img img{
+        width: 100%;height: 100%;
+    }
+    .mall-box .mall-box-item .mall-box-text{
+        font-size: 14px;
+        padding: 0 5px;
+        height: 75px;
+    }
+    .mall-box .mall-box-item .money{
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+        line-height: 26px;
+        font-size: 18px;
+        color: #ea4c3c;
+        font-weight: bold;
+    }
+    .mall-box .mall-box-item .money span{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .ztitle{
+        position: relative;
+        height: 1rem;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display:-webkit-box; 
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:2; 
+    }
+</style>

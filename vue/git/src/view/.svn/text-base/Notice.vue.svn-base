@@ -1,0 +1,109 @@
+<template>
+    <div class="notice">
+        <div class="notic-item">
+            <div class="one">
+                <p>新版微信上上上线了，快快快来体验吧！</p>
+                <div>
+                    <p>官方公告</p>
+                    <p>285订阅</p>
+                </div>
+            </div>
+            <div class="two">
+                <img src="//pic.repaiapp.com/static/png/20180126/10/1516934826518875699.png" alt="">
+            </div>
+        </div>
+        <div class="notic-item">
+            <div class="one">
+                <p>新版微信上上上线了，快快快来体验吧！</p>
+                <div>
+                    <p>官方公告</p>
+                    <p>285订阅</p>
+                </div>
+            </div>
+            <div class="two">
+                <img src="//pic.repaiapp.com/static/png/20180126/10/1516934826518875699.png" alt="">
+            </div>
+        </div>
+        <div class="notic-item">
+            <div class="one">
+                <p>新版微信上上上线了，快快快来体验吧！</p>
+                <div>
+                    <p>官方公告</p>
+                    <p>285订阅</p>
+                </div>
+            </div>
+            <div class="two">
+                <img src="//pic.repaiapp.com/static/png/20180126/10/1516934826518875699.png" alt="">
+            </div>
+        </div>
+        <div class="notic-item">
+            <div class="one">
+                <p>新版微信上上上线了，快快快来体验吧！</p>
+                <div>
+                    <p>官方公告</p>
+                    <p>285订阅</p>
+                </div>
+            </div>
+            <div class="two">
+                <img src="//pic.repaiapp.com/static/png/20180126/10/1516934826518875699.png" alt="">
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "notice"
+    }
+</script>
+
+<style scoped>
+    .notice{
+        background: #fff;
+        min-height: 100vh;
+    }
+    .notic-item{
+        padding: 11px 10px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #dadada;
+    }
+
+    .notic-item .one{
+        overflow: hidden;
+        word-wrap:break-word;
+        margin-right: 15px;
+        font-size: 17px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 5px 0;
+    }
+    .notic-item .one>div{
+        display: flex;
+        font-size: 13px;
+        color: #7f7e80;
+        justify-content: space-between;
+    }
+    .notic-item .one>div p:last-child{
+        padding-left: 20px;
+        background-image: url("../assets/icon-eye.png");
+        background-repeat: no-repeat;
+        background-size: 16px auto;
+        background-position: left center;
+    }
+
+    .notic-item .two{
+        width: 115px;
+        height: 80px;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .notic-item .two img{
+        max-width: 100%;max-height: 100%;
+        width: auto;height: auto;
+
+    }
+</style>

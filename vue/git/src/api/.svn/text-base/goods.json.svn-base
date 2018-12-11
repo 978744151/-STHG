@@ -1,0 +1,51 @@
+{
+    "热门推荐":[
+        {"id":"1","imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517305121914625748.png","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"2","imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517305132919354953.png","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"3","imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517305141364685257.png","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"4","imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517305152451310048.png","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"5","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730539541371.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"6","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730541648505.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"7","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730546336201.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"8","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730549549350.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"9","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730552848755.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20}
+    ],
+    "可兑换":[
+        {"id":"10","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730554826134.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"11","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730556397781.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"12","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730558068984.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"13","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730559451164.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"14","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730561527176.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"15","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730541648505.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"16","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730552848755.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"17","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730539541371.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20}
+    ],
+    "虚拟物品":[
+        {"id":"18","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/624489bbd610820a5fa3865f19a4e18e.jpg","title":"米家扫地机器人","integral":20},
+        {"id":"19","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/fb9fc0f45533935beba6a7d884159bd3.jpg","title":"米家压力IH电饭煲","integral":20},
+        {"id":"20","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/7711a0fd5f02ab833a09cd76416a2a66.jpg","title":"米家IH电饭煲 3L","integral":20},
+        {"id":"21","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/659059871c9c948f90b1a4980582b97a.jpg","title":"米家 IH 电饭煲 4L","integral":20},
+        {"id":"22","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730541648505.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"23","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730546336201.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20},
+        {"id":"24","imgUrl":"https://pic.repaiapp.com/pic/15/17/30/151730549549350.jpeg","title":"公牛插座1.8米GN-607接地板插线","integral":20}
+    ],
+    "智能家居":[
+        {"id":"25","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/624489bbd610820a5fa3865f19a4e18e.jpg","title":"米家扫地机器人","integral":20},
+        {"id":"26","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/fb9fc0f45533935beba6a7d884159bd3.jpg","title":"米家压力IH电饭煲","integral":20},
+        {"id":"27","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/7711a0fd5f02ab833a09cd76416a2a66.jpg","title":"米家IH电饭煲 3L","integral":20},
+        {"id":"28","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/659059871c9c948f90b1a4980582b97a.jpg","title":"米家 IH 电饭煲 4L","integral":20},
+        {"id":"29","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/67bb56dafd1299fb937ea428d73ccb9b.jpg","title":"小米净水器（厨下式）","integral":20},
+        {"id":"30","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/5683098dbfd5b212ace02b5d8d3e95ad.jpg","title":"小米空气净化器 2","integral":20},
+        {"id":"31","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/9c3d36dd3fc2d1678962a08ebfb198f6.jpg","title":"米家激光投影电视 150 英寸","integral":20},
+        {"id":"32","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/446c331c9f28863ae79cd89498f534ef.jpg","title":"米家恒温电水壶","integral":20},
+        {"id":"33","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/7be1efad4ec7ce409dd0682cf12782c2.jpg","title":"智米除菌加湿器","integral":20}
+    ],
+    "手机":[
+        {"id":"1","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/1be408ece9e1ab7ce7693d8fa9809418.jpg","title":"红米Note 4X","integral":20},
+        {"id":"1","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/5fad55126ffe4d1e64bf603fb57ff8bc.jpg","title":"红米4X 超长续航","integral":20},
+        {"id":"1","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/3d60c69ababb64cda2ca31fa527928c1.jpg?bg=FFFFFF","title":"红米Note 5A 标准版","integral":20},
+        {"id":"1","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/bce18245a1c71ae64e72eae737079b63.jpg","title":"小米6 新版本","integral":20},
+        {"id":"1","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/16ef8f67acbe0d717ca240fc80605b21.jpg?bg=A8C9E2","title":"红米Note 4X 浅蓝色","integral":20},
+        {"id":"1","imgUrl":"https://i8.mifile.cn/b2c-mimall-media/c7cdaaf4ad7b457eeb3dcaee4bf6931a.jpg","title":"小米MIX 2 全面屏2.0","integral":20}
+    ]
+}

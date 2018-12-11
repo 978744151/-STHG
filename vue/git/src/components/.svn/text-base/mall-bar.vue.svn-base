@@ -1,0 +1,72 @@
+<template>
+    <div class="mall-bar">
+        <div class="nav-item" v-bind:class="{active:nav===0}">
+           <router-link to="/integralMall">
+               <img src="../assets/mallBar/shouye@3x.png" v-if="nav!==0" alt="">
+               <img src="../assets/mallBar/shouye_selected@3x.png" v-if="nav===0" alt="">
+               <p>首页</p>
+           </router-link>
+        </div>
+        <div class="nav-item" v-bind:class="{active:nav===1}">
+            <router-link to="/bag">
+                <img src="../assets/mallBar/duihuan@3x.png"  v-if="nav!==1" alt="">
+                <img src="../assets/mallBar/duihuan_selected@3x.png"  v-if="nav===1" alt="">
+                <p>兑换袋</p>
+            </router-link>
+        </div>
+        <div class="nav-item" v-bind:class="{active:nav===2}">
+            <router-link to="/mine">
+                <img src="../assets/icon-mine@3x.png" v-if="nav!==2" alt="">
+                <img src="../assets/icon-mine_selected@3x.png" v-if="nav===2" alt="">
+                <p>我的</p>
+            </router-link>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "mall-bar",
+        props: ['nav'],
+    }
+</script>
+
+<style scoped>
+    /*navBar*/
+    .mall-bar{
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #eaeaea;
+        background: #fff;
+        padding: 6px 0 4px 0;
+        display: flex;
+        display: -webkit-flex;
+        position: fixed;
+        left: 0;right: 0;bottom: 0;
+        z-index: 5;
+    }
+    .mall-bar .nav-item a{
+        display: inline-flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mall-bar .nav-item{
+        width: 33.333%;
+        height: 100%;
+        text-align: center;
+    }
+    .mall-bar .nav-item img{
+        width: 25px;
+        height: auto;
+    }
+    .mall-bar .nav-item p{
+        font-size: 12px;
+        line-height: 1;
+        color: #000;
+    }
+    .mall-bar .active p{
+        color: #052b6e;
+    }
+</style>

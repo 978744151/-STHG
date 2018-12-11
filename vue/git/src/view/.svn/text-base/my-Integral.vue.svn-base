@@ -1,0 +1,124 @@
+<template>
+    <div class="myIntegral">
+        <div class="title">
+            <!--<p>积分账单</p>-->
+            <p class="one">最新能量值</p>
+            <p class="two">1526</p>
+            <p class="three">打败了全国99.999%的用户</p>
+            <p class="four">积分账单</p>
+        </div>
+        <div class="col"></div>
+        <div class="list-title">
+            <p>做任务赚积分</p>
+        </div>
+        <div class="integral-item">
+            <img src="../assets/icon-Integral-1.png" alt="img">
+            <div>
+                <p>签到送能量值</p>
+                <p>奖励<span>5</span>能量值</p>
+            </div>
+        </div>
+        <div class="integral-item">
+            <img src="../assets/icon-Integral-2.png" alt="img">
+            <div>
+                <p>缴纳电费送能量值</p>
+                <p>奖励<span>5</span>能量值</p>
+            </div>
+        </div>
+        <div class="integral-item">
+            <img src="../assets/icon-Integral-3.png" alt="img">
+            <div>
+                <p>电力趣味问答送能量值</p>
+                <p>奖励<span>5</span>能量值</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "my-Integral"
+    }
+</script>
+
+<style scoped>
+    .myIntegral{
+        background: #fff;
+        min-height: 100vh;
+    }
+    .title{
+        height: 141px;
+        background: url("../assets/myactivity-bg.png") no-repeat;
+        background-size: 100% 100%;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        position: relative;
+    }
+    .title .four{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 14px;
+        padding-left: 20px;
+        background: url("../assets/icon-Integral-zhangdan.png") no-repeat;
+        background-size: 17px auto;
+        background-position: left center;
+    }
+    .title .one{
+        font-size: 14px;
+    }
+    .title .two{
+        font-size: 36px;
+    }
+    .title .three{
+        font-size: 17px;
+    }
+    .col{
+        height: 10px;
+        background: #f0f0f0;
+    }
+    .list-title{
+        height: 50px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .list-title p{
+        padding-left: 10px;
+        border-left: 3px solid #123676;
+    }
+    .integral-item{
+        padding: 15px;
+        display: flex;
+        font-size: 12px;
+        color: #7c7c7c;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .integral-item img{
+        width: 44px;height: 44px;
+        flex: none;
+    }
+    .integral-item div{
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background-image: url("../assets/icon-Integral-back.png");
+        background-repeat: no-repeat;
+        background-position: right center;
+        width: 100%;
+    }
+    .integral-item div p:first-child{
+        font-size: 14px;
+        color: #000;
+    }
+    .integral-item span{
+        color: #d20202;
+    }
+</style>

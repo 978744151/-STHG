@@ -1,0 +1,33 @@
+<template>
+    <div class="activity">
+        <div class="activity-item activityone"></div>
+        <div class="activity-item activitytwo"></div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "integral-activity"
+    }
+</script>
+
+<style scoped>
+    .activity{
+        min-height: 100vh;
+        background: #fff;
+        padding: 10px 10px 0 10px;
+    }
+    .activity-item{
+        width: 100%;
+        height: 90px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    .activityone{
+        background-image: url("../assets/activity-bg1.png");
+    }
+    .activitytwo{
+        background-image: url("../assets/activity-bg2.png");
+        margin-top: 10px;
+    }
+</style>

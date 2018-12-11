@@ -1,0 +1,281 @@
+<template>
+	<div class="checkIn">
+		<div class="checkInHead">
+			<p>最新能量值</p>
+			<p class="nums">1256</p>
+			<p class="per">打败49.6%的电网用户</p>
+		</div>
+		<div class="city">
+			<div class="nocheck">
+				<div class="hascheck" style="width: 40%;">
+					<img src="https://pic.repaiapp.com/static/png/20180126/17/1516960062826705152.png">
+				</div>
+			</div>
+			<!-- 已签到 hascheckInbtn-->
+			<div class="checkInbtn">签到</div>
+		</div>
+
+		<div class="integral">
+			<p>积分<span>兑好礼</span></p>
+			<p class="integralIntro">小积分 换好礼 会员专享，每月更新</p>
+		</div>
+		<div class="mall-box">
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img1.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img2.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img3.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img1.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img2.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+            <div class="mall-box-item">
+                <div class="mall-box-img">
+                    <img src="../assets/mall/mall-img3.png" alt="">
+                </div>
+                <div class="mall-box-text">
+                    <p>公牛插座1.8米GN-607接线板插排插线板</p>
+                    <p class="money">38<span>积分</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- mask -->
+        <!-- <div class="mask"></div>
+        <div class="Popout">
+        	<p>恭喜您签到成功！</p>
+        	<span>+5积分</span>
+        	<div class="PopoutBtn">知道了</div>
+        </div> -->
+	</div>
+</template>
+<script>
+    export default {
+        name: "checkIn",
+        components: {
+
+        },
+        data (){
+            return {
+
+            }
+        }
+    }
+</script>
+<style scoped type="text/css">
+	.checkInHead{
+		position: relative;
+		width: 100%;
+		height: 165px;
+		background-image: url('https://pic.repaiapp.com/static/png/20180126/14/1516948925884410057.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 16px;
+		color: #fff;
+	}
+	.nums{
+		font-size: 46px;
+	}
+	.per{
+		font-size: 14px;
+	}
+	.city{
+		position: relative;
+		width: 100%;
+		height: 205px;
+		background-image: url('https://pic.repaiapp.com/static/png/20180126/14/1516949493621589752.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-flow: column;
+	}
+	.nocheck{
+		position: relative;
+		width: 345px;
+		height: 33px;
+		background-image: url('https://pic.repaiapp.com/static/png/20180126/17/1516959420161797100.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.checkInbtn{
+		position: relative;
+		width: 209px;
+		height: 44px;
+		border-radius: 25px;
+		background-color: #123676;
+		color: #fff;
+		font-size: 16px;
+		text-align: center;
+		line-height: 44px;
+		margin-top: 48px;
+	}
+	.hascheckInbtn{
+		background-color: #b8bec7
+	}
+	.hascheck{
+		position: absolute;
+		width: 100%;
+		height: 33px;
+		overflow: hidden;
+		/*background-image: url('https://pic.repaiapp.com/static/png/20180126/17/1516960062826705152.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;*/
+	}
+	.hascheck img{
+		width: 9.2rem;
+		height: 100%;
+	}
+	.integral{
+		position: relative;
+		margin:5px 0;
+		background-color: #fff;
+		width: 100%;
+		height: 80px;
+		display: flex;
+		align-items: center;
+		flex-flow: column;
+		justify-content: center;
+		font-size: 18px;
+	}
+	.integralIntro{
+		font-size: 13px;
+		color: #8f8f8f;
+		margin-top:4px;
+	}
+	.mall-box{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .mall-box .mall-box-item{
+        background: #fff;
+        width: 185px;
+        height: 240px;
+        margin-top: 5px;
+        position: relative;
+        /*padding:  5px 3px 5px 7px;*/
+    }
+    .mall-box .mall-box-item .mall-box-img{
+        width: 175px;
+        height: 160px;
+        background: #00000060;
+        margin: 5px auto 0;
+    }
+    .mall-box .mall-box-item .mall-box-img img{
+        width: 100%;height: 100%;
+    }
+    .mall-box .mall-box-item .mall-box-text{
+        font-size: 14px;
+        padding: 0 5px;
+        height: 75px;
+    }
+    .mall-box .mall-box-item .money{
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+        line-height: 26px;
+        font-size: 18px;
+        color: #ea4c3c;
+        font-weight: bold;
+    }
+    .mall-box .mall-box-item .money span{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .mask{
+    	position: fixed;
+    	height: 100%;
+    	width: 100%;
+    	background-color: rgba(0,0,0,0.5);
+    	top: 0;
+    	left: 0;
+    }
+    .Popout{
+    	position: fixed;
+    	width: 286px;
+    	height: 198px;
+    	background-image: url('https://pic.repaiapp.com/static/png/20180126/18/1516961532250950101.png');
+    	background-size: 100% 100%;
+    	background-repeat: no-repeat;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	top: 170px;
+    	display: flex;
+    	align-items: center;
+    	flex-flow: column;
+    	justify-content: center;
+    	font-size: 18px;
+    	color: #000000;
+    }
+    .Popout span{
+    	color: #ea4c3c;
+    	/*margin:10px 0;*/
+    }
+    .PopoutBtn{
+    	position: absolute;
+    	width: 265px;
+    	height: 43px;
+    	text-align: center;
+    	line-height: 43px;
+    	background-color: #123676;
+    	font-size: 18px;
+    	color: #ffffff;
+    	bottom: 10px;
+    	border-radius: 3px;
+
+    }
+</style>
+
+

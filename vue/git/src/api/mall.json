@@ -1,0 +1,9 @@
+{
+    "banner":[
+        {"imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517304238798109797.png","key":"1"},
+        {"imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517304238798109797.png","key":"2"},
+        {"imgUrl":"https://pic.repaiapp.com/static/png/20180130/17/1517304238798109797.png","key":"3"}
+    ],
+    "notice":{"text":"新版积分商城上线了--新版积分商城上线了--新版积分商城上线了--新版积分商城上线了","id":"1"},
+    "navClass":["热门推荐","可兑换","虚拟物品","智能家居","手机"]
+}

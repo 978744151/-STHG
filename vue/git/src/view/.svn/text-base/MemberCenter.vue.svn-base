@@ -1,0 +1,358 @@
+<template>
+	<div class="content">
+		<div class="head">
+			<div class="headBg">
+				<div class="left">
+					<div class="leftTop">
+						<img src="https://pic.repaiapp.com/static/png/20180125/13/1516859604963210099.png">
+						<div class="leftTopName">
+							<span>zhxshld</span>
+							<p>钻石会员</p>
+						</div>
+					</div>
+					<div class="leftBottom">我的能量值<span>1526</span></div>
+				</div>
+				<div class="right">
+					<div class="rightTop">个人中心</div>
+					<div class="rightBottom"><img src="https://pic.repaiapp.com/static/png/20180125/14/1516860737513335052.png"></div>
+				</div>
+			</div>
+		</div>
+		<!-- menber -->
+		<div class="member">
+			<div class="mymember">会员权益</div>
+			<div class="memberList">
+				<div>
+					<img src="https://pic.repaiapp.com/static/png/20180125/14/1516861911519410055.png">
+					<p>积分热兑</p>
+				</div>
+				<div>
+					<img src="https://pic.repaiapp.com/static/png/20180125/14/1516861933203375149.png">
+					<p>积分抽奖</p>
+				</div>
+				<div>
+					<img src="https://pic.repaiapp.com/static/png/20180125/14/1516861950280301102.png">
+					<p>客服优先</p>
+				</div>
+				<div>
+					<img src="https://pic.repaiapp.com/static/png/20180125/14/1516861967252165755.png">
+					<p>上门服务</p>
+				</div>
+				<div>
+					<img src="https://pic.repaiapp.com/static/png/20180125/14/1516861984440775456.png">
+					<p class="more">更多特权</p>
+				</div>
+			</div>
+		</div>
+		<!-- benefit -->
+		<div class="benefit">
+			<div class="mymember">会员福利</div>
+			<div class="benefitlist">
+				<div class="list1">
+					<div class="middle">
+						<div>星巴克15元抵用券</div>
+						<p>5000能量值可兑换</p>
+						<p class="btn">免费兑换</p>
+					</div>
+
+				</div>
+				<div class="list1 list2">
+					<div class="middle">
+						<div>爱奇艺VIP月卡9.9元</div>
+						<p>5000能量值可兑换</p>
+						<p class="btn">免费兑换</p>
+					</div>
+				</div>
+				<div class="list1 list3">
+					<div class="middle">
+						<div>爱奇艺年卡50元通用券</div>
+						<p>5000能量值可兑换</p>
+						<p class="btn">免费兑换</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- task -->
+		<div class="mask">
+			<div class="mymember">做任务赚积分</div>
+			<div class="maskList">
+				<div class="maskle">
+					<img src="https://pic.repaiapp.com/static/png/20180126/10/1516934492084779899.png">
+					<div>
+						<p>签到送能量值</p>
+						<p class="enery">奖励<span>5</span>能量值</p>
+					</div>
+				</div>
+				<img src="https://pic.repaiapp.com/static/png/20180126/10/1516934822134505252.png" class="arrows">
+			</div>
+			<div class="maskList">
+				<div class="maskle">
+					<img src="https://pic.repaiapp.com/static/png/20180126/10/1516934906256985499.png">
+					<div>
+						<p>缴纳电费送能量值</p>
+						<p class="enery">奖励<span>50～1000</span>能量值</p>
+					</div>
+				</div>
+				<img src="https://pic.repaiapp.com/static/png/20180126/10/1516934822134505252.png" class="arrows">
+			</div>
+			<div class="maskList">
+				<div class="maskle">
+					<img src="https://pic.repaiapp.com/static/png/20180126/10/1516934929856495554.png">
+					<div>
+						<p>电力趣味问答送能量值</p>
+						<p class="enery">奖励<span>10</span>能量值</p>
+					</div>
+				</div>
+				<img src="https://pic.repaiapp.com/static/png/20180126/10/1516934822134505252.png" class="arrows">
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+    export default {
+        name: "MemberCenter",
+        components: {
+
+        },
+        data (){
+            return {
+
+            }
+        }
+    }
+</script>
+<style scoped type="text/css">
+	.content{
+		position: relative;
+		width: 100%;
+		height: 100%;
+        background-color: #f3f3f3;
+    }
+	.head{
+		position: relative;
+		height: 145px;
+		background-color: #121212;
+	}
+	.headBg{
+		width: 336px;
+		height: 127.5px;
+		position: absolute;
+		background-image: url('https://pic.repaiapp.com/static/png/20180125/11/1516851848589624857.png');
+		background-size: 100% 100%;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.left{
+		position: relative;
+		padding-left: 15px;
+		box-sizing: border-box;
+		display: flex;
+		flex-flow: column;
+	}
+	.leftTop{
+		display: flex;
+		align-items: center;;
+		justify-content: space-between;
+		margin-bottom: 40px;
+	}
+	.leftTop img{
+		width: 35px;
+		height: 35px;
+		background-color: #fff;
+		border-radius: 50%;
+		margin-right: 6px;
+	}
+	.leftTopName{
+		position: relative;
+		display: flex;
+		flex-flow: column;
+		font-size: 16px;
+		color: #fff;
+	}
+	.leftTopName p{
+		font-size: 11px;
+		padding: 1px 4px;
+		border:1px solid #fff;
+		border-radius: 25px;
+	}
+	.leftBottom{
+		position: relative;
+		font-size: 14px;
+		color: #fff;
+	}
+	.leftBottom span{
+		font-size: 19px;
+	}
+	.right{
+		position: relative;
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+	}
+	.rightTop{
+		position: relative;
+		font-size: 13px;
+		color: #fff;
+		padding: 11px 15px;
+		background-color: #022561;
+		border-top-left-radius: 25px;
+		border-bottom-left-radius: 25px;
+		margin-bottom: 24px;
+	}
+	.rightBottom{
+		width: 42px;
+		height: 42px;
+	}
+	.rightBottom img{
+		width: 100%;
+		height: 100%;
+	}
+	.member{
+		position: relative;
+		background-color: #fff;
+		margin-bottom: 11px;
+	}
+	.mymember{
+		padding: 15px 18px;
+		position: relative;
+		box-sizing: border-box;
+		font-size: 15px;
+		color: #000000;
+	}
+	.memberList{
+		position: relative;
+		display: flex;
+	}
+	.memberList div{
+		position: relative;
+		width: 20%;
+		font-size: 0;
+		display: flex;
+		align-items: center;
+		flex-flow: column;
+		justify-content: center;
+	}
+	.memberList div img{
+		width: 31px;
+		height: 31px;
+		margin-bottom: 9px;
+	}
+	.memberList div	p{
+		font-size: 11px;
+		color: #113676;
+		margin-bottom: 21px;
+	}
+	.memberList div	p.more{
+		color: #c4c4c4;
+	}
+	.benefit{
+		position: relative;
+		background-color: #fff;
+	}
+	.benefitlist{
+		position: relative;
+		display: flex;
+		padding: 0 18px;
+		flex-wrap: wrap;
+    	justify-content: space-between;
+	}
+	.list1{
+		position: relative;
+		width: 159px;
+		height: 144px;
+		background-image: url('https://pic.repaiapp.com/static/png/20180126/10/1516932267556952101.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		margin-bottom: 18px;
+		color: #9c4e69;
+	}
+	.list2{
+		background-image: url('https://pic.repaiapp.com/static/png/20180126/10/1516932622557610199.png');
+		color:#65a0b9;
+	}
+	.list3{
+		background-image: url('https://pic.repaiapp.com/static/png/20180126/10/1516932642487015255.png');
+		color: #5b928a;
+	}
+	.middle{
+		position: absolute;
+		width: 130px;
+		height: 115px;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%,-50%);
+		padding:0 15px;
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+
+		text-align: center;
+		flex-flow: column;
+		justify-content: center;
+		/*background-color: red;*/
+	}
+	.middle div{
+		margin-bottom: 15px;
+	}
+	.list1 p{
+		font-size: 10px;
+	}
+	.btn{
+		padding: 6px 23px;
+		background-color: #aa677e;
+		border-radius: 25px;
+		color: #fff;
+		margin-top: 5px;
+	}
+	.list2 .btn{
+		background-color: #65a0b9;
+	}
+	.list3 .btn{
+		background-color: #5b928a;
+	}
+	.mask{
+		position: relative;
+		background-color: #fff;
+		margin-top: 15px;
+	}
+	.maskList{
+		position: relative;
+		border-bottom: 1px #e5e5e5 solid;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding:13px 15px;
+	}
+	.maskle{
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+	.maskle img{
+		position: relative;
+		width: 44px;
+		height: 44px;
+		margin-right: 7px;
+	}
+	.maskle div{
+		font-size: 14px;
+		color: #131313;
+	}
+	.enery{
+		font-size: 12px;
+		color: #7c7c7c
+	}
+	.enery span{
+		color: #d20202;
+	}
+	.arrows{
+		position: relative;
+		width: 5px;
+		height: 9px;
+	}
+</style>

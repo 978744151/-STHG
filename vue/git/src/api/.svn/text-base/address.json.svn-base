@@ -1,0 +1,16 @@
+[
+    {
+        "id":"1",
+        "isDefault":true,
+        "name":"isYang",
+        "phone":"18182587363",
+        "address":"陕西省西安市莲湖区莲湖大厦A08-1234"
+    },
+    {
+        "id":"2",
+        "isDefault":false,
+        "name":"GANGA",
+        "phone":"18182587363",
+        "address":"陕西省西安市莲湖区莲湖大厦A12-1204"
+    }
+]

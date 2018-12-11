@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>首页</title>
+<body>
+<div id="app">
+    <router-view></router-view>
+    <lg-preview></lg-preview>
+</div>
+</body>
+</html>
+<script>
+    // import api from 'src/network/request.js'
+</script>
+<script src="https://api.map.baidu.com/api?ak=FGKQ4PdmEt4D8DDlz4OfyaWWl9AflVuR&v=2.0&services=true"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=l0CXSPHMOd7TGiG7zcxZvNil"></script> -->
+<!-- <script type="text/javascript">
+    navigator.geolocation.getCurrentPosition(function (position) {
+        console.log(position)
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        var point = new BMap.Point(lon, lat);  // 创建坐标点
+        // 根据坐标得到地址描述
+        var myGeo = new BMap.Geocoder();
+        myGeo.getLocation(point, function (result) {
+            localStorage.setItem('lat',result.point.lat);
+            localStorage.setItem('lng',result.point.lng);
+            localStorage.setItem('province',result.addressComponents.province);
+            localStorage.setItem('city',result.addressComponents.city);
+            localStorage.setItem('area',result.addressComponents.district);
+            // var city = result.addressComponents.city;
+            // localStorage.setItem('addressComponents',result.addressComponents);
+            // localStorage.setItem('point',result.point);
+            // console.log(result);
+            // $('body').html(city);
+        });
+    });
+   
+</script> -->

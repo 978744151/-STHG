@@ -1,0 +1,225 @@
+<template>
+    <div class="myOrder">
+        <ul class="nav clear">
+            <!-- <li class="active">全部</li>
+            <li>实物</li>
+            <li>虚拟</li>
+            <li>已发货</li> -->
+            <li v-for="(item,index) in head" @click="change(index)" :class="sel==index?'active':''">{{item.title}}</li>  
+        </ul>
+        <div class="content" v-show="sel==0">
+            <div class="order-item" v-for="(item,index) in 2">
+                <div class="item-title">
+                    <p class="xuni" v-if="index==0">实物商品</p>
+                    <p class="xuni" v-if="index==1">虚拟商品</p>
+                    <p>订单编号：1234553252</p>
+                </div>
+                <div class="item-content" @click="orderDetail('123')">
+                    <div class="content-img"><img src="../assets/mall/mall-img3.png"/></div>
+                    <div class="content-text">
+                        <p>爱奇艺会员VIP精心推荐</p>
+                        <p>核销方式：账号密码</p>
+                        <p>核销状态：Account:123456，Password: 123456</p>
+                    </div>
+                </div>
+                <div class="item-btn">
+                    <button class="blueBtn">再次兑换</button>
+                    <button class="whiteBtn">查看券码</button>
+                </div>
+            </div>
+        </div>
+        <div class="content" v-show="sel==1">
+            <div class="order-item" v-for="(item,index) in 2">
+                <div class="item-title">
+                    <p class="xuni">实物商品</p>
+                    <p>订单编号：1234553252</p>
+                </div>
+                <div class="item-content" @click="orderDetail('123')">
+                    <div class="content-img"><img src="../assets/mall/mall-img3.png"/></div>
+                    <div class="content-text">
+                        <p>爱奇艺会员VIP精心推荐</p>
+                        <p>核销方式：账号密码</p>
+                        <p>核销状态：Account:123456，Password: 123456</p>
+                    </div>
+                </div>
+                <div class="item-btn">
+                    <button class="blueBtn">再次兑换</button>
+                    <button class="whiteBtn">查看券码</button>
+                </div>
+            </div>
+        </div>
+        <div class="content" v-show="sel==2">
+            <div class="order-item" v-for="(item,index) in 3">
+                <div class="item-title">
+                    <p class="xuni">虚拟商品</p>
+                    <p>订单编号：1234553252</p>
+                </div>
+                <div class="item-content" @click="orderDetail('123')">
+                    <div class="content-img"><img src="../assets/mall/mall-img3.png"/></div>
+                    <div class="content-text">
+                        <p>爱奇艺会员VIP精心推荐</p>
+                        <p>核销方式：账号密码</p>
+                        <p>核销状态：Account:123456，Password: 123456</p>
+                    </div>
+                </div>
+                <div class="item-btn">
+                    <button class="blueBtn">再次兑换</button>
+                    <button class="whiteBtn">查看券码</button>
+                </div>
+            </div>
+        </div>
+        <div class="content" v-show="sel==3">
+            <div class="order-item" v-for="(item,index) in 4">
+                <div class="item-title">
+                    <p class="xuni">实物商品</p>
+                    <p>订单编号：1234553252</p>
+                </div>
+                <div class="item-content" @click="orderDetail('123')">
+                    <div class="content-img"><img src="../assets/mall/mall-img3.png"/></div>
+                    <div class="content-text">
+                        <p>爱奇艺会员VIP精心推荐</p>
+                        <p>核销方式：账号密码</p>
+                        <p>核销状态：Account:123456，Password: 123456</p>
+                    </div>
+                </div>
+                <div class="item-btn">
+                    <button class="blueBtn">再次兑换</button>
+                    <button class="whiteBtn">查看券码</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "my-order",
+        data() {
+            return {
+                sel:0,
+                head:[{
+                    title:"全部"
+                },{
+                    title:"实物"
+                },{
+                    title:"虚拟"
+                },{
+                    title:"已发货"
+                }],
+
+            }
+        },
+        methods: {
+            orderDetail: function (id) {
+                this.$router.push({name:'orderDetail',params: {id:id}})
+            },
+            change:function(index){
+                var _this=this;
+                _this.sel=index;
+            }
+        },
+        created(){
+            var _this=this;
+            _this.sel=_this.$route.query.id
+            console.log( this.$route.query.id)
+
+        }
+    }
+</script>
+
+<style scoped>
+    .myOrder{
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+    .nav{
+        width: 100%;
+        background: #fff;
+        position: fixed;
+        top: 0;
+    }
+    .nav li{
+        float: left;
+        width: 25%;
+        line-height: 45px;
+        font-size: 15px;
+        list-style: none;
+        text-align: center;
+    }
+    .nav .active{
+        color: #4481e1;
+        border-bottom: 4px solid #123676;
+    }
+    .order-item{
+        margin-top: 5px;
+        background-color: #fff;
+    }
+    .order-item .item-title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        height: 44px;
+        padding: 0 10px;
+    }
+    .order-item .item-title p:first-child{
+        font-size: 15px;
+        padding-left: 37px;
+        background-repeat: no-repeat;
+        background-size: 32px 16px;
+        background-position: left center;
+    }
+    .xuni{
+        background-image: url("../assets/icon-xuni.png");
+    }
+    .shiwu{
+        background-image: url("../assets/icon-shiwu.png");
+    }
+
+
+    .order-item .item-content{
+        padding: 10px;
+        background: #f8f8f8;
+        display: flex;
+        font-size: 14px;
+    }
+    .order-item .content-img{
+        width: 80px;height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #d3d3d3;
+        flex: none;
+    }
+    .order-item .content-img img{
+        width: auto;height: auto;
+        max-width: 100%;max-height: 100%;
+    }
+    .order-item .content-text{
+        padding: 4px 0 4px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+    .order-item .content-text p{
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        width: 100%;
+    }
+    .order-item .content-text p:first-child{
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .item-btn{
+        height: 51px;
+        display: flex;
+        align-items: center;
+        padding-right: 10px;
+        flex-direction: row-reverse;
+    }
+    .item-btn button{
+        margin-left: 10px;
+    }
+</style>

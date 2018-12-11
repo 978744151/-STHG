@@ -1,0 +1,287 @@
+<template>
+    <div class="order">
+        <div class="add-address" v-if="!isAddress">
+            <button><span>+</span> 添加收货地址</button>
+        </div>
+        <div class="address"v-if="isAddress" @click="selectAddress">
+            <div class="content">
+                <p>收货人：isYang</p>
+                <p>收货地址：陕西省西安市雁塔区锦江之星A08-1208</p>
+            </div>
+            <div class="back"></div>
+        </div>
+        <div class="order-list">
+            <div class="xuni">
+                <div class="order-list-title">
+                    <p>虚拟商品</p>
+                </div>
+                <div class="order-list-item clear">
+                    <div class="order-list-img">
+                        <img src="../assets/mall/mall-img1.png" alt="">
+                    </div>
+                    <div class="order-list-text">
+                        <p class="one">爱奇艺VIP黄金会员12个月,爱奇艺会员年卡爱奇艺会员年卡</p>
+                        <p class="two">颜色分类：年卡</p>
+                        <p class="three"><span>2000</span>积分</p>
+                        <p class="four">x1</p>
+                    </div>
+                </div>
+                <div class="order-list-item clear">
+                    <div class="order-list-img">
+                        <img src="../assets/mall/mall-img1.png" alt="">
+                    </div>
+                    <div class="order-list-text">
+                        <p class="one">爱奇艺VIP黄金会员12个月,爱奇艺会员年卡</p>
+                        <p class="two">颜色分类：年卡</p>
+                        <p class="three"><span>2000</span>积分</p>
+                        <p class="four">x1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="shiwu">
+                <div class="order-list-title">
+                    <p>实物商品</p>
+                </div>
+                <div class="order-list-item clear">
+                    <div class="order-list-img">
+                        <img src="../assets/mall/mall-img1.png" alt="">
+                    </div>
+                    <div class="order-list-text">
+                        <p class="one">爱奇艺VIP黄金会</p>
+                        <p class="two">颜色分类：年卡</p>
+                        <p class="three"><span>2000</span>积分</p>
+                        <p class="four">x1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <p>小计</p>
+                <p><span>6000</span>积分</p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="text"><p>共4件</p><p>合计：<span class="num">6000</span><span>积分</span></p></div>
+            <div class="btn" @click="submitOrder">提交订单</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "confirm-order",
+        data() {
+            return {
+                isAddress:true
+            }
+        },
+        methods: {
+            submitOrder: function () {
+                this.$router.push({path:'paySuccess'})
+            },
+            selectAddress() {
+                this.$router.push({path:'selectAddress'})
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .order{}
+    /*添加地址*/
+    .order .add-address{
+        height: 86px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("../assets/confirmOrder/border.png");
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: 100% 4px;
+        background-color: #fff;
+    }
+    .order .add-address button{
+        width: 155px;
+        height: 36px;
+        color: #123676;
+        border: 1px solid #123676;
+        border-radius: 18px;
+        font-size: 16px;
+        background-color: #fff;
+    }
+    .order .add-address span{
+        font-size: 18px;
+    }
+    /*有地址*/
+    .order .address{
+        position: relative;
+        height: 86px;
+        background-image: url("../assets/confirmOrder/border.png");
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: 100% 4px;
+        background-color: #fff;
+    }
+    .order .address .content{
+        width: 100%;
+        height: 100%;
+        padding: 10px 40px 13px 45px;
+        font-size: 15px;
+        background-image: url("../assets/confirmOrder/icon-address.png");
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        background-size: auto 21px;
+        display: flex;
+        flex-direction:column;
+        justify-content: space-between;
+    }
+    .order .address .back{
+        height: 100%;
+        width: 10px;
+        background-image: url("../assets/icon-back.png");
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-position: center;
+        position: absolute;
+        top: 0;right: 10px;
+        z-index: 5;
+    }
+
+    /*订单列表*/
+    .order-list{
+        border-top: 1px solid #dadada;
+        border-bottom: 1px solid #dadada;
+        margin-top: 10px;
+        background: #fff;
+    }
+    .order-list .order-list-title{
+        padding: 0 10px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #dadada;
+    }
+    .order-list .order-list-title p{
+        font-size: 15px;
+        padding-left: 37px;
+        background-repeat: no-repeat;
+        background-size: 32px 16px;
+        background-position: left center;
+    }
+    .order-list .xuni .order-list-title p{
+        background-image: url("../assets/icon-xuni.png");
+
+    }
+    .order-list .shiwu .order-list-title p{
+        background-image: url("../assets/icon-shiwu.png");
+
+    }
+    /*item*/
+    .order-list .order-list-item{
+        padding: 10px;
+        border-bottom: 1px solid #dadada;
+        position: relative;
+        display: flex;
+    }
+    .order-list .order-list-img{
+        width: 79px;
+        height: 79px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #bec2c9;
+        flex: none;
+    }
+    .order-list .order-list-img img{
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+    }
+    .order-list .order-list-text{
+        height: 79px;
+        /*width: 75%;*/
+        font-size: 13px;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+    .order-list .order-list-text .one{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .order-list .order-list-text .two{
+        font-size: 12px;
+        color: #949494;
+    }
+    .order-list .order-list-text .three{
+        color: #ea4c3c;
+    }
+    .order-list .order-list-text .three span{
+        font-size: 16px;
+    }
+    .order-list .order-list-text .four{
+        align-self: flex-end;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 15px;
+    }
+    /*小计*/
+    .order-list .total{
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        font-size: 15px;
+    }
+    .order-list .total:last-child{
+        font-size: 15px;
+        color: #ea4c3c;
+    }
+    .order-list .total span{
+        font-size: 16px;
+    }
+    /*footer*/
+    .footer{
+        width: 100%;
+        height: 48px;
+        border-top: 1px solid #dadada;
+        font-size: 14px;
+        background: #fff;
+        position: fixed;
+        bottom: 0;
+    }
+    .footer .text{
+        width: 71%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5px 0 10px;
+    }
+    .footer .text p:last-child{
+        font-size: 15px;
+    }
+    .footer .text p:last-child span{
+        color:#ea4c3c
+    }
+    .footer .text .num{
+        font-size: 16px;
+    }
+    .footer .btn{
+        width: 29%;
+        height: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #123676;
+        color: #fff;
+    }
+</style>
